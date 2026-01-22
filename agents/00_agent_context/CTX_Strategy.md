@@ -112,3 +112,64 @@ Chaque agent peut mettre à jour ses règles.
 ## 3. Protocole de Consultation Sûre (?)
 - **Déclencheur** : Commande finissant par **`?`**.
 - **Action** : Analyser, Répondre, **NE PAS MODIFIER DE FICHIER**, Ajouter `(🔒 Réponse consultative : Aucune modification...)`.
+
+---
+
+# PARTIE 4 : USINE À AGENTS (Standards de Création)
+
+Tout agent ajouté au système doit respecter scrupuleusement ces standards.
+
+## 1. Convention de Nommage
+- **Dossier** : `agents/XX_agent_[nom_court]/`
+    - `XX` : Numéro incrémental.
+    - `[nom_court]` : en minuscule, snake_case (ex: `architecte`, `tutoriel`).
+
+## 2. Structure Standard d'un Agent
+Chaque agent doit contenir STRICTEMENT ces deux fichiers :
+
+### A. Fichier d'Initialisation : `init_agent_[nom].md`
+**Template :**
+```markdown
+# AGENT [NOM EN MAJUSCULE]
+
+Tu es l'Expert [Domaine] responsable de [Responsabilité] pour le projet Solicode.
+
+## 1. Chargement du Cerveau Global
+Tu dois te synchroniser avec la vision du projet.
+- Lire : `../00_agent_context/CTX_Strategy.md` (Vision, Workflow, Règles).
+- Lire : `../00_agent_context/CTX_Domain.md` (Pédagogie, Filière, Labs).
+- Lire : `../00_agent_context/init_agent_context.md` (Identité centrale).
+
+## 2. Chargement de ta Mémoire Spécifique
+- Lire : `./rules_agent_[nom].md`
+
+## 3. Ton Rôle
+Tu es le **[Nom du Rôle]**.
+- [Liste des responsabilités extraites du contexte global]
+
+## 4. Méta-règle
+Si tu as un doute, réfère-toi toujours à `CTX_Strategy.md`.
+
+---
+Confirme avec : "Agent [Nom] prêt."
+```
+
+### B. Fichier de Règles : `rules_agent_[nom].md`
+**Template :**
+```markdown
+# 🧠 Règles Spécifiques - Agent [Nom]
+
+Ce fichier contient tes directives opérationnelles.
+
+## 1. Format de Sortie
+[Définir ici le format des livrables : Markdown, JSON, Code...]
+
+## 2. Contraintes Métier
+[Règles spécifiques au domaine de l'agent]
+```
+
+## 3. Procédure de Création
+1.  Vérifier le dernier numéro de dossier existant.
+2.  Créer le dossier.
+3.  Générer les fichiers `init` et `rules` selon les templates.
+4.  Mettre à jour `agents/README.md` pour lister le nouvel agent.

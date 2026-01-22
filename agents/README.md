@@ -4,65 +4,46 @@ Ce dossier contient les ressources et contextes pour les agents IA collaborant s
 
 ## 📂 Structure du Dossier
 
-### 1. Cerveau Partagé (`00_context_global/`)
-Ce dossier contient la **source de vérité** commune à tous les agents.
-*   `01_project_overview.md` : Vision pédagogique et répartition des rôles.
-*   `02_referentiel_competences.md` : Liste des compétences (C1-C7) à couvrir.
-*   `03_stack_technique.md` : Définition des niveaux techniques (N1-N3).
-*   `04_core_rules.md` : Règles comportementales et techniques universelles.
+### 1. Cerveau Partagé (`00_agent_context/`)
+Ce dossier est la **source de vérité unique**. Il remplace l'ancien "Context Global" et "Agent Factory".
+*   `init_agent_context.md` : Guide principal.
+*   `CTX_Strategy.md` : Vision, Workflow, Règles fondamentales et **Standards de création d'agents**.
+*   `CTX_Domain.md` : Pédagogie, Filière et Spécificités (Labs).
 
 ### 2. Agents Spécialisés
-Chaque sous-dossier correspond à un agent spécifique avec sa propre mémoire et ses instructions d'initialisation.
+Chaque sous-dossier correspond à un agent spécifique.
 
-### 🏭 Méta-Agent
-*   **`00_agent_factory/`** : **Architecte du Système**.
-    *   Responsable de la création, de la standardisation et de la maintenance des autres agents.
-    *   Gère et nettoie le `00_context_global`.
+*   **`01_agent_lab/`** : **Explorateur R&D**.
+    *   Produit des Labs (Marp + Tutos) pour découvrir une techno.
+*   **`03_agent_architecte/`** (A venir) : Architecte Projet.
+*   **`04_agent_ua/`** (A venir) : Ingénieur Pédagogique.
 
-### 👷 Agents Opérationnels
-*   **`01_agent_stack_niveaux/`** : **Expert Stack Technique**.
-    *   Définit les paliers d'apprentissage (N1, N2, N3).
-*   **`02_agent_projet_fil_rouge/`** : **Architecte Projet**.
-    *   Conçoit le scénario métier et le projet support global.
-*   **`03_agent_sprints/`** : **Planificateur Sprints**.
-    *   Découpe le projet en versions livrables.
-*   **`04_agent_uas/`** : **Ingénieur Pédagogique**.
-    *   Structure les Unités d'Apprentissage et identifie les besoins en tutos.
-*   **`05_agent_redaction_tutos/`** : **Rédacteur Technique**.
-    *   Rédige les guides pas-à-pas.
-*   **`06_agent_sessions/`** : **Organisateur Formation**.
-    *   Planifie le déroulé des sessions (Mini-projets, Live Coding).
-*   **`07_agent_qcm/`** : **Expert Évaluation**.
-    *   Génère les QCM et les validations de compétences.
+## 🚀 Comment Créer un Nouvel Agent
+
+Pour ajouter un nouvel agent au système, référez-vous à **`CTX_Strategy.md`** (Partie 4 : Usine à Agents).
+En résumé :
+1.  Créer le dossier `agents/XX_agent_[nom]/`.
+2.  Créer `init_agent_[nom].md` (basé sur le template standard).
+3.  Créer `rules_agent_[nom].md` (basé sur le template standard).
+4.  Ajouter l'agent à cette liste (README.md).
 
 ## 🚀 Comment Activer un Agent
 
-Pour transformer une session d'IA générique en un Agent Spécialisé, suivez ces étapes :
+Pour transformer une session d'IA générique en un Agent Spécialisé :
 
-1.  **Ouvrir le fichier d'initialisation** de l'agent souhaité (ex: `agents/01_agent_qcm/init_agent_qcm.md`).
-2.  **Copier/Coller** le contenu dans le chat de l'IA (ou demander à l'IA de "Lire et s'initialiser avec ce fichier").
-3.  L'agent chargera alors :
-    *   Le contexte global (Vision, Compétences, Règles).
-    *   Son contexte local (Règles spécifiques).
-    *   Son rôle précis.
+1.  **Ouvrir le fichier d'initialisation** de l'agent (ex: `agents/01_agent_lab/init_agent_lab.md`).
+2.  **Copier/Coller** le contenu dans le chat de l'IA (ou demander à l'IA de "Lire ceci").
+3.  L'agent chargera alors tout le contexte nécessaire (Strategy, Domain) automatiquement.
 
 ## 🎮 Mode d'Utilisation
 
-Pour interagir efficacement et en toute sécurité avec les agents :
+### Mode Consultatif `?`
+Terminez votre phrase par **`?`** pour forcer une réflexion sans modification de fichiers.
+*   "Est-ce que le plan du Lab est bon ?" -> L'agent critique mais ne touche rien.
 
-### 1. Mode Consultatif (Safe Mode) `?`
-Terminez votre phrase par un point d'interrogation **`?`** pour forcer une réponse sans modification de fichiers.
-*   **Exemple** : *"Analyse la cohérence de ce module ?"*
-*   **Résultat** : L'agent réfléchit, propose, critique, mais **ne touche à rien**.
+### Mode Exécutif
+Utilisez l'impératif pour déclencher des actions.
+*   "Génère le fichier Marp." -> L'agent crée le fichier.
 
-### 2. Mode Exécutif (Action Mode)
-Utilisez l'impératif pour déclencher des actions réelles.
-*   **Exemple** : *"Génère les fichiers pour ce module."*
-*   **Résultat** : L'agent crée ou modifie les fichiers demandés.
-
-## 🧠 Apprentissage Continu
-
-Chaque agent possède un fichier `rules_agent_[NOM].md`.
-*   C'est sa **mémoire à long terme**.
-*   Si vous corrigez une erreur récurrente, demandez à l'agent de l'ajouter dans ce fichier.
-*   À la prochaine initialisation, l'agent se souviendra de cette règle.
+## 🧠 Mémoire et Règles
+Chaque agent possède un fichier `rules_agent_[NOM].md` pour stocker ses consignes spécifiques et ses apprentissages au fil du temps.
