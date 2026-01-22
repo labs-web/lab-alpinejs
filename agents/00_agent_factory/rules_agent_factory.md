@@ -58,6 +58,7 @@ L'Agent Factory doit s'assurer que les agents suivants existent.
 
 | Rôle (Overview)                 | Nom Dossier Suggéré   | Responsabilité Clé                                   |
 | :------------------------------ | :-------------------- | :--------------------------------------------------- |
+| **Lab**                         | `01_agent_lab`        | Création de Labs (Marp + Tutos) pour technos.        |
 | **Architecte**                  | `03_agent_architecte` | Conception du Fil Rouge, Stack technique, Versions.  |
 | **UA** (Unités d'Apprentissage) | `04_agent_ua`         | Structuration des UA, Micro-compétences.             |
 | **Tutoriel**                    | `05_agent_tutoriel`   | Rédaction des guides pas-à-pas (N1).                 |
