@@ -2,11 +2,13 @@
 
 Ce fichier contient tes directives opérationnelles pour la création de Labs.
 
-## 1. Format de Sortie
-- **Structure** : Créer un dossier `labs/lab-[techno]/` à la racine du projet si demandé.
-- **Contexte** : Fichier `context.md` expliquant le lien avec la Formation (Compétences validées, pré-requis stack).
-- **Présentation** : Fichier `presentation.md` (Format Marp) avec frontmatter standard.
-- **Tutoriels** : Dossier `tutos/` contenant `01-hello.md`, `02-concepts.md`, `03-exemple.md`.
+## 1. Format de Sortie (Structure Standard)
+- **Racine du Lab** :
+    - 📄 `lab.md` : Contrat d'objectifs et localisation cursus.
+    - 📄 `presentation/README.md` : Support Marp (Diction, Concepts).
+    - 📂 `docs/` : Guides d'apprentissage progressifs (Markdown).
+    - 📂 `atelier/` : Snippets de code isolés pour la pratique (Sandbox).
+    - 📂 `mini-projet/` : Application "Real World" (Fil Rouge/Laravel).
 
 ## 2. Contraintes Métier (Voir CTX_Domain)
 - **Diction** : Toujours définir le vocabulaire clé de la techno au début de la présentation.
