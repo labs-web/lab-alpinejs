@@ -7,8 +7,8 @@ Ce dossier contient les ressources et contextes pour les agents IA collaborant s
 ### 1. Cerveau Partagé (`00_agent_context/`)
 Ce dossier est la **source de vérité unique**. Il remplace l'ancien "Context Global" et "Agent Factory".
 *   `init_agent_context.md` : Guide principal.
-*   `CTX_Strategy.md` : Vision, Workflow, Règles fondamentales et **Standards de création d'agents**.
-*   `CTX_Domain.md` : Pédagogie, Filière et Spécificités (Labs).
+*   `init_agent_context.md` : Guide principal.
+*   `context_domain.md` : Savoir Métier (Pédagogie, Filière).
 
 ### 2. Agents Spécialisés
 Chaque sous-dossier correspond à un agent spécifique.
@@ -20,7 +20,7 @@ Chaque sous-dossier correspond à un agent spécifique.
 
 ## 🚀 Comment Créer un Nouvel Agent
 
-Pour ajouter un nouvel agent au système, référez-vous à **`CTX_Strategy.md`** (Partie 4 : Usine à Agents).
+Pour ajouter un nouvel agent au système, référez-vous à **`strategy_agent_context.md`** (Partie 4 : Usine à Agents).
 En résumé :
 1.  Créer le dossier `agents/XX_agent_[nom]/`.
 2.  Créer `init_agent_[nom].md` (basé sur le template standard).

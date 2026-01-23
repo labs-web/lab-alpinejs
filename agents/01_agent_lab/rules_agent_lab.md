@@ -4,6 +4,7 @@ Ce fichier contient tes directives opérationnelles pour la création de Labs.
 
 ## 1. Format de Sortie
 - **Structure** : Créer un dossier `labs/lab-[techno]/` à la racine du projet si demandé.
+- **Contexte** : Fichier `context.md` expliquant le lien avec la Formation (Compétences validées, pré-requis stack).
 - **Présentation** : Fichier `presentation.md` (Format Marp) avec frontmatter standard.
 - **Tutoriels** : Dossier `tutos/` contenant `01-hello.md`, `02-concepts.md`, `03-exemple.md`.
 
