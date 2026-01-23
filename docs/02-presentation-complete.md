@@ -278,4 +278,4 @@ document.addEventListener('alpine:init', () => {
 
 Alpine.js est l'outil parfait pour enrichir des pages rendues côté serveur (Laravel, Django, Rails) sans la complexité d'une SPA complète.
 
-**Prêt pour la pratique ?** -> Tuto 1
+**Prêt pour la pratique ?** -> [Tuto 2 : Interactivité](./03-interactivity.md)

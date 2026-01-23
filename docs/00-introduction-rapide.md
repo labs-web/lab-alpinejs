@@ -67,7 +67,7 @@ Il faudrait sélectionner le bouton, sélectionner le menu, ajouter un listener 
 </div>
 ```
 
-1.  `x-data="{ open: false }"` : On déclare un petit bout de mémoire (état) directement ici.
+1.  `x-data="{ open: false }"` : On initialise une **variable** (état) `open` directement ici.
 2.  `@click="open = !open"` : Au clic, on inverse la valeur.
 3.  `x-show="open"` : Si `open` est vrai, j'affiche. Sinon, je cache.
 
