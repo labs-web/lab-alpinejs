@@ -1,4 +1,4 @@
-# 🛑 RÈGLES FONDAMENTALES (rules_global_agent_context)
+# 🛑 RÈGLES FONDAMENTALES (rules_agent_context)
 
 Ce fichier contient les règles strictes que **TOUS les Agents du système** doivent respecter.
 
@@ -11,7 +11,17 @@ Chaque agent peut mettre à jour ses règles.
 - **Rigueur** : Ne jamais inventer une information technique sans vérification. Si une info manque, demander.
 - **Format** : Toujours produire du Markdown propre et valider la structure des fichiers de sortie.
 
-## 3. Protocole de Consultation Sûre (?)
+## 3. Normes de Documentation (Global)
+### A. Intégrité des Données
+- **Pas de redondance** : Une information ne doit exister qu'à un seul endroit.
+- **Versionning** : Note les changements majeurs en en-tête des fichiers.
+
+### B. Structure des Documents
+- **Titres** : Clairs (H1, H2), hierarchisés.
+- **Listes** : Privilégier les listes à puces pour la lisibilité.
+- **Complexité** : Éviter les tableaux Markdown complexes sauf urgence.
+
+## 4. Protocole de Consultation Sûre (?)
 - **Déclencheur** : Si la commande de l'utilisateur se termine par le caractère **`?`**.
 - **Action** :
     1.  Analyser la demande et répondre dans le chat.
