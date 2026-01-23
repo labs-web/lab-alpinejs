@@ -27,7 +27,7 @@ Une vue d'ensemble exhaustive pour maîtriser le framework.
 
 ---
 
-## 2. Les Directives Fondamentales (État & Affichage)
+## 2. Les Directives Fondamentales (1/2)
 
 ### `x-data` : Le Cœur
 Définit un composant et son état local (objet JS).
@@ -36,6 +36,10 @@ Définit un composant et son état local (objet JS).
     <!-- Tout ce qui est ici a accès à count et open -->
 </div>
 ```
+
+---
+
+## 2. Les Directives Fondamentales (2/2)
 
 ### `x-show` : Visibilité
 Affiche/Masque un élément (CSS `display: none`) selon une condition.
@@ -51,7 +55,7 @@ Injecte du texte ou du HTML.
 
 ---
 
-## 3. L'Interactivité
+## 3. L'Interactivité (1/2)
 
 ### `x-on` (ou `@`) : Écouter
 Écoute les événements DOM standards.
@@ -67,6 +71,10 @@ Lie la valeur d'un attribut HTML à une expression JS.
 <div :class="{ 'bg-red-500': hasError }"></div>
 ```
 
+---
+
+## 3. L'Interactivité (2/2)
+
 ### `x-model` : Binding Bidirectionnel
 Synchronise un input avec une donnée.
 ```html
@@ -76,16 +84,22 @@ Synchronise un input avec une donnée.
 
 ---
 
-## 4. Structures de Contrôle
+## 4. Structures de Contrôle (1/2)
 
 ### `x-if` : Conditionnel (DOM)
-Ajoute/Supprime l'élément du DOM (>< `x-show`).
-*Nécessite une balise `<template>`.*
+Ajoute ou retire physiquement l'élément du DOM (contrairement à `x-show` qui utilise CSS `display: none`).
+
+> 💡 **Important** : `x-if` et `x-for` doivent obligatoirement être placés sur une balise `<template>`.
+> Le navigateur n'affiche jamais une balise `<template>`, mais Alpine l'utilise pour savoir QUOI injecter.
 ```html
 <template x-if="isAdmin">
     <button>Supprimer</button>
 </template>
 ```
+
+---
+
+## 4. Structures de Contrôle (2/2)
 
 ### `x-for` : Boucles
 Itère sur un tableau.

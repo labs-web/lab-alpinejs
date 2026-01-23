@@ -14,6 +14,14 @@ class ArticleController extends Controller
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
+        if ($request->filled('filter_status')) {
+            if ($request->filter_status === 'published') {
+                $query->where('is_published', true);
+            } elseif ($request->filter_status === 'draft') {
+                $query->where('is_published', false);
+            }
+        }
+
         $articles = $query->latest()->get();
 
         if ($request->wantsJson()) {
