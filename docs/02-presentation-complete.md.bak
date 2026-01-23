@@ -133,121 +133,40 @@ Itère sur un tableau pour créer de multiples éléments.
 
 ---
 
-## 5. Cycle de Vie & Chargement (1/2) : `x-init`
+## 5. La "Magie" (Magic Properties)
 
-### `x-init`
-Exécuté automatiquement lors de l'initialisation du composant. 
-Idéal pour lancer des requêtes ou configurer des écouteurs.
+Des aides contextuelles fournies par Alpine.
+
+- **`$el`** : L'élément DOM courant.
+- **`$refs`** : Accéder aux éléments marqués par `x-ref`.
+- **`$watch`** : Surveiller les changements d'une variable.
+- **`$dispatch`** : Émettre un événement personnalisé (communication enfant > parent).
+- **`$nextTick`** : Exécuter du code après la mise à jour du DOM.
 
 ```html
-<div x-data="{ posts: [] }" 
-     x-init="posts = await (await fetch('/api/posts')).json()">
-    <!-- Les posts sont chargés ici -->
-</div>
+<div x-init="$watch('count', value => console.log(value))"></div>
 ```
 
 ---
 
-## 5. Cycle de Vie & Chargement (2/2) : `x-cloak`
+## 6. Cycle de Vie & Chargement
 
-### Le Problème (FOUC)
-Le HTML s'affiche parfois avant que JS ne soit prêt, révélant du contenu brut.
-
-### La Solution
-Ajoutez ce style dans le `<head>` de votre page (dans une balise `<style>` ou un fichier CSS) :
-
+### `x-init`
+Exécuté lors de l'initialisation du composant.
 ```html
-<style>
-    [x-cloak] { display: none !important; }
-</style>
+<div x-data="{ posts: [] }" x-init="posts = await (await fetch('/api')).json()">
+    ...
+</div>
+```
+
+### `x-cloak`
+Attribut CSS pour cacher le HTML brut avant qu'Alpine ne se charge.
+```css
+[x-cloak] { display: none !important; }
 ```
 ```html
 <div x-data x-cloak>
-    Je suis visible uniquement quand Alpine est prêt !
-</div>
-```
-
----
-
-## 6. La "Magie" (Magic Properties) (1/4)
-
-Alpine fournit des propriétés magiques (commençant par `$`) pour accéder à des fonctionnalités avancées.
-
-### `$el`
-Référence à l'élément DOM courant.
-```html
-<button @click="$el.innerHTML = 'Cliqué !'">Cliquez-moi</button>
-```
-
----
-
-## 6. La "Magie" (Magic Properties) (2/4)
-
-### `$refs`
-Accède aux éléments marqués par `x-ref` (alternative déclarative à `document.getElementById`).
-```html
-<div x-data>
-    <input type="text" x-ref="usernameInput">
-    <button @click="$refs.usernameInput.focus()">Focus</button>
-</div>
-```
-
----
-
-## 6. La "Magie" (Magic Properties) (3/4)
-
-### `$watch`
-Surveille les changements d'une variable et déclenche une action.
-*(Souvent utilisé dans `x-init`)*
-
-```html
-<div x-data="{ open: false }" 
-     x-init="$watch('open', value => console.log('Le menu est : ' + value))">
-    <button @click="open = !open">Basculer</button>
-</div>
-```
-
----
-
-## 6. La "Magie" (Magic Properties) (4/5)
-
-### `$dispatch` : Communication Enfant -> Parent
-Permet de déclencher un événement personnalisé (CustomEvent) qui "remonte" (bubbles) vers les éléments parents.
-Très utile pour faire communiquer deux composants entre eux.
-
-**L'émetteur (Enfant) :**
-```html
-<button @click="$dispatch('notify', { message: 'Sauvegardé !' })">
-    Sauvegarder
-</button>
-```
-
-**Le récepteur (Parent) :**
-```html
-<div @notify="alert($event.detail.message)">
-   <!-- Le bouton est ici -->
-</div>
-```
-
----
-
-## 6. La "Magie" (Magic Properties) (5/5)
-
-### `$nextTick`
-Alpine met à jour le DOM de façon asynchrone pour la performance.
-Si vous essayez de manipuler un élément *juste après* avoir changé une donnée, il n'est peut-être pas encore visible.
-
-`$nextTick` force l'attente de la fin du rendu visuel.
-
-```html
-<div x-data="{ open: false }">
-    <button @click="
-        open = true; 
-        // Sans nextTick, le input est encore caché => focus() échoue
-        $nextTick(() => $refs.searchInput.focus()); 
-    ">Search</button>
-
-    <input x-show="open" x-ref="searchInput">
+    Chargé !
 </div>
 ```
 

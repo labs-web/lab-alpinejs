@@ -3,7 +3,8 @@
 Ce fichier définit le périmètre technique et humain du projet. Il sert de référentiel pour situer chaque Lab.
 
 ## 1. Profil des Apprenants
-- **Niveau de Français** : **B1 (Intermédiaire)** - Compréhension des consignes techniques et lecture de documentation.
+- **Niveau de Français** : **B1 (Intermédiaire)** - Phrases simples et directes.
+    - **Vocabulaire Technique** : **Strict et Professionnel**. NE JAMAIS simplifier ou vulgariser les termes métier (ex: dire "Variable", pas "bout de mémoire" ; dire "Boucle", pas "tourner en rond" ; dire "Instance", pas "exemplaire").
 - **Background** : Ont validé les fondamentaux du Web (HTML/CSS/JS/PHP/SQL).
 
 ## 2. La Filière "Développement Web & Mobile" (Solicode)
