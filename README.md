@@ -5,7 +5,7 @@ Site Officiel : [https://alpinejs.dev/](https://alpinejs.dev/)
 ## 📂 Structure du Workspace
 
 *   📄 **`lab.md`** : Context et Objectifs du Lab.
-*   � **`presentation/`** : Support de présentation (Marp).
+*   📂 **`presentation/`** : Support de présentation (Marp) (`README.md`).
 *   📂 **`mini-projet/`** : Projet Laravel (Fil Rouge) pour l'application "Real World".
 *   📂 **`atelier/`** : Réalisation des tutoriels (Snippets HTML isolés).
 *   📂 **`docs/`** : Guides d'apprentissage progressifs (Markdown).
