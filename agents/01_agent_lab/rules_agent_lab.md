@@ -5,8 +5,7 @@ Ce fichier contient tes directives opérationnelles pour la création de Labs.
 ## 1. Format de Sortie (Structure Standard)
 - **Racine du Lab** :
     - 📄 `lab.md` : Contrat d'objectifs et localisation cursus.
-    - 📄 `presentation/README.md` : Support Marp (Diction, Concepts).
-    - 📂 `docs/` : Guides d'apprentissage progressifs (Markdown).
+    - 📂 `docs/` : Guides d'apprentissage progressifs & Présentations (Marp).
     - **Règle Spéciale Présentation** : Tous les supports de présentation (Intro rapide ou Complète) doivent être formatés avec **Marp** (`marp: true`), qu'ils soient dans `presentation/` ou `docs/`.
     - 📂 `atelier/` : Snippets de code isolés pour la pratique (Sandbox).
     - 📂 `mini-projet/` : Application "Real World" (Fil Rouge/Laravel).

@@ -12,12 +12,8 @@ Il permet de **remplacer ou compléter jQuery et le Vanilla JS complexe** par un
     *   Objectif : Gestion d'état fluide et appels API (Fetch) sans lourdeur.
 
 ## 2. Travail à faire
-1.  **Présentation (Marp)** :
-    *   Philosophie : "Le Tailwind du comportement".
-    *   Les directives clés : `x-data`, `x-bind`, `x-on`, `x-show`, `x-model`.
-    *   Pourquoi l'utiliser dans un projet Laravel ?
 
-2.  **Tutoriels Progressifs** :
+2.  **Tutoriels & Présentations** :
     *   `00-introduction-rapide` : Présentation rapide, pourquoi et comment.
     *   `01-initialization` : Setup CDN et premier état réactif (Counter).
     *   `02-presentation-complete` : Vue d'ensemble exhaustive (Philosophie, Directives, Magie).
