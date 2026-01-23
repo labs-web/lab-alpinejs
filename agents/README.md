@@ -6,21 +6,23 @@ Ce dossier contient les ressources et contextes pour les agents IA collaborant s
 
 ### 1. Cerveau Partagé (`00_agent_context/`)
 Ce dossier est la **source de vérité unique**. Il remplace l'ancien "Context Global" et "Agent Factory".
-*   `init_agent_context.md` : Guide principal.
-*   `init_agent_context.md` : Guide principal.
-*   `context_domain.md` : Savoir Métier (Pédagogie, Filière).
+*   `init_agent_context.md` : Identité centrale et procédures de création.
+*   `context_domain.md` : Savoir Métier (Pédagogie, Filière, Stack).
+*   `rules_agent_context.md` : Règles Universelles (Format, Mode Safe).
+*   `templates_agent_context.md` : Gabarits pour nouveaux agents.
 
 ### 2. Agents Spécialisés
 Chaque sous-dossier correspond à un agent spécifique.
 
 *   **`01_agent_lab/`** : **Explorateur R&D**.
     *   Produit des Labs (Marp + Tutos) pour découvrir une techno.
+    *   Initialise le travail via le fichier `lab.md` du workspace.
 *   **`03_agent_architecte/`** (A venir) : Architecte Projet.
 *   **`04_agent_ua/`** (A venir) : Ingénieur Pédagogique.
 
 ## 🚀 Comment Créer un Nouvel Agent
 
-Pour ajouter un nouvel agent au système, référez-vous à **`strategy_agent_context.md`** (Partie 4 : Usine à Agents).
+Pour ajouter un nouvel agent au système, référez-vous à **`00_agent_context/templates_agent_context.md`**.
 En résumé :
 1.  Créer le dossier `agents/XX_agent_[nom]/`.
 2.  Créer `init_agent_[nom].md` (basé sur le template standard).
@@ -33,7 +35,7 @@ Pour transformer une session d'IA générique en un Agent Spécialisé :
 
 1.  **Ouvrir le fichier d'initialisation** de l'agent (ex: `agents/01_agent_lab/init_agent_lab.md`).
 2.  **Copier/Coller** le contenu dans le chat de l'IA (ou demander à l'IA de "Lire ceci").
-3.  L'agent chargera alors tout le contexte nécessaire (Strategy, Domain) automatiquement.
+3.  L'agent chargera alors tout le contexte nécessaire (Domain, Rules) automatiquement.
 
 ## 🎮 Mode d'Utilisation
 
