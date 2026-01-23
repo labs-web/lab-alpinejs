@@ -20,9 +20,9 @@ Il permet de **remplacer ou compléter jQuery et le Vanilla JS complexe** par un
 2.  **Tutoriels Progressifs** :
     *   `00-introduction-rapide` : Présentation rapide, pourquoi et comment.
     *   `01-initialization` : Setup CDN et premier état réactif (Counter).
-    *   `01-presentation-complete` : Vue d'ensemble exhaustive (Philosophie, Directives, Magie).
-    *   `02-interactivity` : Gestion des évènements et visibilité (Dropdown/Modal).
-    *   `03-async-data` : Consommation d'API avec `fetch` et `x-init`.
+    *   `02-presentation-complete` : Vue d'ensemble exhaustive (Philosophie, Directives, Magie).
+    *   `03-interactivity` : Gestion des évènements et visibilité (Dropdown/Modal).
+    *   `04-async-data` : Consommation d'API avec `fetch` et `x-init`.
 
 3.  **Application "Real World" (Fil Rouge)** :
     *   Créer une interface de **Filtrage dynamique** pour une liste d'éléments.

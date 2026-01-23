@@ -33,7 +33,25 @@ Pas de `document.querySelector` ni de classes complexes. Tout se passe avec des 
 Un bouton qui ouvre/ferme un menu.
 
 **En Vanilla JS (Classique) :**
-Il faudrait sélectionner le bouton, sélectionner le menu, ajouter un listener 'click', gérer une classe 'hidden'... Le code est loin du HTML.
+Il faudrait sélectionner le bouton, sélectionner le menu, ajouter un listener 'click', gérer une classe 'hidden'... Le code est souvent séparé du HTML.
+
+```html
+<button id="btn">Menu</button>
+<div id="menu" style="display: none">Contenu...</div>
+
+<script>
+    const button = document.getElementById('btn');
+    const menu = document.getElementById('menu');
+
+    button.addEventListener('click', () => {
+        if (menu.style.display === 'none') {
+            menu.style.display = 'block';
+        } else {
+            menu.style.display = 'none';
+        }
+    });
+</script>
+```
 
 ---
 
