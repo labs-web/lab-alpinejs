@@ -18,7 +18,9 @@ Il permet de **remplacer ou compléter jQuery et le Vanilla JS complexe** par un
     *   Pourquoi l'utiliser dans un projet Laravel ?
 
 2.  **Tutoriels Progressifs** :
+    *   `00-introduction-rapide` : Présentation rapide, pourquoi et comment.
     *   `01-initialization` : Setup CDN et premier état réactif (Counter).
+    *   `01-presentation-complete` : Vue d'ensemble exhaustive (Philosophie, Directives, Magie).
     *   `02-interactivity` : Gestion des évènements et visibilité (Dropdown/Modal).
     *   `03-async-data` : Consommation d'API avec `fetch` et `x-init`.
 
