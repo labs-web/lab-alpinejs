@@ -24,8 +24,10 @@ Ces règles définissent le comportement fondamental de l'assistant (Agent).
 - **Complexité** : Éviter les tableaux Markdown complexes sauf urgence ou demande spécifique.
 
 ## 4. Protocole de Consultation Sûre (?)
+- **PRIORITÉ ABSOLUE** : Cette règle surpasse toutes les autres.
 - **Déclencheur** : Si la commande de l'utilisateur se termine par le caractère **`?`** (ex: "Analyse ce fichier ?").
 - **Action** :
-    1.  Analyser la demande et répondre dans le chat.
-    2.  **INTERDICTION FORMELLE** de modifier le moindre fichier pour cette requête.
-    3.  Terminer la réponse par : `(🔒 Réponse consultative : Aucune modification de fichier n'a été effectuée.)`.
+    1.  Analyser la demande.
+    2.  **STOP** : Ne générer AUCUN appel d'outil de modification (write, replace, run_command...).
+    3.  Répondre uniquement par du texte.
+    4.  Terminer obligatoirement par : `(🔒 Réponse consultative : Aucune modification de fichier n'a été effectuée.)`.
