@@ -5,7 +5,7 @@ Explorer **Alpine.js**, un framework JavaScript léger et déclaratif.
 L'objectif est de maîtriser l'ajout d'interactivité dynamique dans des vues Blade (Laravel) sans la complexité d'une SPA.
 Il permet de **remplacer ou compléter jQuery et le Vanilla JS complexe** par une approche plus déclarative.
 
-**Localisation dans le Cursus :**
+## Localisation dans le Cursus 
 *   **Compétence validée** : `C3 (Développement Back-end)` - Enrichissement des Vues (Blade).
 *   **Stack Technique** : Niveau **N2 (Adapter)** - Front.
 
