@@ -20,12 +20,8 @@ Il permet de **remplacer ou compléter jQuery et le Vanilla JS complexe** par un
     *   `03-interactivity` : Gestion des évènements et visibilité (Dropdown/Modal).
     *   `04-async-data` : Consommation d'API avec `fetch` et `x-init`.
 
-3.  **Application "Real World" (Fil Rouge)** :
-    *   Créer une interface de **Filtrage dynamique** pour une liste d'éléments.
+3.  **Mini-projet** :
+    *   Création d'un CRUD avec Laravel et Alpine.js.
     *   Stack : HTML/Blade + Tailwind CSS + Alpine.js.
     *   Le but est de rendre une liste filtrable sans recharger la page.
 
-## 3. Détails du Lab
-*   **Version** : Alpine.js v3.x.
-*   **Contrainte Pédagogique** : Commencer par l'approche CDN pour la simplicité, puis mentionner l'installation NPM.
-*   **Focus** : "Locality of Behavior" (Comportement localisé dans le HTML).
