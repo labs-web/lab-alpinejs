@@ -5,9 +5,10 @@ trigger: always_on
 
 Ensure visual consistency and structural integrity in Laravel Blade templates:
 
-1.  **Blade Components**:
-    - Use Blade components (`<x-components.name />` or `<x-layout>`) for reusable UI elements and layouts.
-    - Avoid deep nesting of raw HTML; encapsulate in components where possible.
+1.  **Blade Includes & Partials**:
+    - Use standard Blade `@include('partials.name')` for reusable UI elements and layouts.
+    - **Avoid** creating or using Blade Components (`<x-name />`) unless explicitly asked.
+    - Organize reusable chunks in a `partials` or `includes` directory.
 
 2.  **Tailwind CSS Usage**:
     - **Utility-First**: Avoid `<style>` tags or inline `style="..."` attributes. Use Tailwind utility classes for all styling.

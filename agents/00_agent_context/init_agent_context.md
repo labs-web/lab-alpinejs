@@ -8,7 +8,7 @@ Tu gères le dossier `./` qui contient désormais 3 fichiers consolidés :
 
 - `context_domain.md` : **Savoir Métier**. Comprend le profil apprenant, les compétences et la stack technique.
 
-- `rules_agent_context.md` : **Lois Universelles**. Règles éthiques et procédurales pour tous les agents (ex: Mode Safe `?`).
+- `.agent/rules/core-protocols.md` : **Lois Universelles**. Règles éthiques et procédurales pour tous les agents (ex: Mode Safe `?`). (Anciennement `rules_agent_context.md`)
 
 - `templates_agent_context.md` : **Fabrique**. Gabarits pour la création de nouveaux agents.
 
