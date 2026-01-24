@@ -13,7 +13,7 @@ Si l'utilisateur demande de créer un nouveau rôle ou agent :
 4.  **Configurer le Trigger** : Utiliser `trigger: model_decision` avec une description claire.
 
 ## 2. Initialisation d'un Lab
-Si l'utilisateur demande d'initialiser le Lab (fichier `lab.md`) :
-1.  **Vérifier** si `lab.md` existe déjà.
+Si l'utilisateur demande d'initialiser le Lab (fichier `README.md`) :
+1.  **Vérifier** si `README.md` existe déjà.
 2.  **Si absent**, lire le template `.agent/resources/templates-lab-structure.md`.
-3.  **Créer `lab.md`** à la racine avec les sections vides à compléter par l'utilisateur.
+3.  **Créer `README.md`** à la racine avec les sections vides à compléter par l'utilisateur.

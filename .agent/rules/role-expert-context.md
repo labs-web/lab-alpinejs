@@ -11,7 +11,7 @@ Ton rôle n'est pas passif : tu dois activement maintenir, organiser et distribu
 ## 2. Tes Sources de Vérité
 Tu gères le contexte global du projet. Les fichiers de référence sont :
 
-- `.agent/resources/context_domain.md` : **Savoir Métier / Stack**. (Niveaux N1/N2/MVP).
+
 
 
 
