@@ -1,58 +1,24 @@
-# Plan de Restructuration .agent (Architecture Mono-Agent / Multi-Rôles)
+Voici la structure complète et épurée pour ton dossier **.agent**, organisée par dossiers avec des descriptions reformulées pour plus de clarté :
 
-Ce plan décrit la nouvelle architecture pour le dossier `.agent`, basée sur une séparation claire entre identité (Rules), savoir (Resources), savoir-faire procédural (Workflows) et expertises techniques isolées (Skills).
+### 📂 Dossier : Rules (Règles de comportement)
 
-## 1. 📂 Architecture Cible (Actuelle)
+* **security-safemode.md** : Gère le protocole de sécurité "Safe Mode" qui interdit toute modification de fichier si la commande se termine par **`??`**.
+* **ethics-quality.md** : Impose la rigueur technique, interdit l'invention d'informations et assure le respect de la source unique de vérité (**SSOT**).
+* **standards-docs.md** : Définit les standards de rédaction Markdown, incluant la hiérarchie des titres (H1 > H2 > H3) et la clarté visuelle.
+* **role-lab-assistant.md** : Définit l'identité de l'assistant **`🎓 [Lab]`**, sa mission pédagogique et son ton professionnel encourageant.
 
-```tree
-.agent/
-├── rules/                  # "Qui je suis & Comment je travaille"
-│   ├── 01-core-constitution.md # Lois universelles + Global Context
-│   ├── 02-role-lab-assistant.md # Rôle Expert Pédagogue & Tech
-│   ├── tech-alpine-js.md   # Règles Alpine
-│   └── tech-laravel-blade.md # Règles Laravel/Blade
-│
-├── resources/              # "Ce que je sais" (Mémoire Froide)
-│   ├── carte_techno_globale.md # Stack Technique par Niveau (Source de Vérité)
-│   ├── referentiel-competences.md # Référentiel C1-C7
-│   ├── templates-lab-structure.md # Gabarit pour README.md
-│   └── templates-agent-creation.md # Gabarit pour Rules
-│
-├── workflows/              # "Ce que je fais" (Procédures Automatisées)
-│   ├── init-structure.md   # Initialisation de projet (Lab, Agent)
-│   ├── create-component.md # Création composant Alpine
-│   ├── init-lab.md         # (Obsolète)
-│   └── refactor-extract-alpine.md # Extraction logique JS
-│
-└── skills/                 # "Mes super-pouvoirs" (Expertise Pointue)
-    └── demo-alpine-debug/  # Procédure de débogage avancée
-        └── SKILL.md
-```
+### 📂 Dossier : Skills (Expertises techniques)
 
-## 2. 📝 Détail des Composants
+* **tech-alpine-js.md** : Regroupe les bonnes pratiques pour Alpine.js, comme la syntaxe raccourcie (`@`, `:`) et l'usage de `x-cloak` pour éviter le flash de contenu.
+* **tech-laravel-blade.md** : Définit l'usage des partials Blade, la structure Tailwind CSS mobile-first et le respect de la sémantique HTML.
+* **alpine-blade-integration.md** : Spécialisé dans le couplage technique entre Blade et Alpine.js, ainsi que la validation des appels API RESTful pour le niveau N2.
+* **alpine-debugging.md** : Fournit des procédures de diagnostic avancées utilisant `$data`, `$watch` et les outils d'inspection du navigateur.
 
-### A. Rules (Règles Actives)
-- **Définition** : Instructions qui modifient le comportement de l'IA en temps réel.
-- **Types** :
-    - `Always On` : Protocoles de sécurité (`??`), Style de code, Contexte obligatoire.
-    - `Model Decision` : Personnalités (Rôles) activées selon le besoin (Expert Lab, Gardien Contexte).
+### 📂 Dossier : Workflows (Processus de travail)
 
-### B. Resources (Ressources Passives)
-- **Définition** : Documents de référence consultés uniquement sur demande ou instruction explicite.
-- **Rôle** : Servir de "Source de Vérité" (SSOT). Ne contient pas d'instructions actives ("Fais ceci"), mais des faits ("La stack est Laravel 10").
+* **init-resource.md** : Guide l'agent pour créer de nouvelles règles ou initialiser un dossier de Lab avec les bons templates.
+* **refactor-alpine.md** : Procédure pour extraire la logique `x-data` complexe vers des objets `Alpine.data` réutilisables.
+* **create-ui-component.md** : Automatise la création de composants d'interface Blade + Alpine (Dropdown, Modal) avec leur structure standard.
+* **generate-lab-solicode.md** : Pilote la génération complète d'un Lab, incluant les tutoriels progressifs et l'énoncé du mini-projet.
 
-### C. Workflows (Procédures)
-- **Définition** : Séquences d'étapes standardisées pour réaliser une tâche complexe.
-- **Usage** : "Initialise le projet", "Refactorise ce code".
-- **Lien** : S'appuie souvent sur les Templates des Resources.
 
-### D. Skills (Compétences Isolées)
-- **Définition** : Modules autonomes contenant une expertise très spécifique (ex: Debug, Migration SGBD, Audit Sécu).
-- **Structure** : Dossier contenant un `SKILL.md` et potentiellement des scripts ou exemples associés.
-
-## 3. 🚀 Workflow d'Interaction
-1.  **L'utilisateur parle**.
-2.  **Core Protocols** vérifie la sécurité (`??`).
-3.  **Global Loader** injecte le contexte métier (`carte_techno_globale`).
-4.  **Le Modèle décide** quel rôle activer (ex: *Expert Lab* pour une question de code).
-5.  **L'Expert Lab** décide s'il a besoin d'un **Workflow** (ex: *Init Structure*) ou d'un **Skill** (ex: *Debug*) pour répondre.
