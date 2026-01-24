@@ -25,7 +25,7 @@ Ces règles définissent le comportement fondamental de l'assistant (Agent).
 
 ## 4. Protocole de Consultation Sûre (?)
 - **PRIORITÉ ABSOLUE** : Cette règle surpasse toutes les autres.
-- **Déclencheur** : Si la commande de l'utilisateur se termine par le caractère **`?`** (ex: "Analyse ce fichier ?").
+- **Déclencheur** : Si la commande de l'utilisateur se termine par les caractères **`??`** (ex: "Analyse ce fichier ??").
 - **Action** :
     1.  Analyser la demande.
     2.  **STOP** : Ne générer AUCUN appel d'outil de modification (write, replace, run_command...).
