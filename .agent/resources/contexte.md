@@ -1,17 +1,12 @@
-### contexte.md
-
 # 📋 Fiche Ressource : Projet Fil Rouge
 
 ## 1. Identité du Projet
 
 * **Nom du Projet** : Fil Rouge Solicode.
 * **Propriétaire** : Fouad Essarraj (Profil Hybride : Expert Tech & Pédagogie).
-* **Localisation** : Tangier, Maroc.
 * **Objectif** : Application multi-plateforme (Web Public, Admin, API JSON, Mobile Natif).
 
-## 2. Stack Technique de Référence (Niveau N2 — Adapter)
-
-Le standard actuel pour le développement est le niveau **N2** :
+## 2. Stack Technique de Référence
 
 * **Back-end** : Laravel avec Couche Service, Validation FormRequest et Spatie Permissions.
 * **Front-end** : Blade + Preline UI (Tailwind CSS) + Alpine.js.
@@ -19,7 +14,7 @@ Le standard actuel pour le développement est le niveau **N2** :
 * **API** : Standard RESTful avec Laravel Resources.
 * **Mobile** : Android Natif (Kotlin / Jetpack Compose) consommant l'API Laravel via Retrofit.
 
-## 3. Cadre Pédagogique (Compétences C1 à M8)
+## 3. Cadre Pédagogique (Compétences C1 à C7)
 
 L'application doit permettre de valider les blocs de compétences suivants :
 
@@ -30,7 +25,7 @@ L'application doit permettre de valider les blocs de compétences suivants :
 * **C5** : Mobile (Android Compose).
 * **C6** : Qualité & Sécurité (Tests manuels/auto, CSRF, XSS).
 * **C7** : Déploiement (Linux Ubuntu, LAMP/LEMP).
-* **M8** : Veille technologique & Labs (Exploration d'outils comme Alpine.js).
+
 
 ## 4. Outils & Environnement
 
