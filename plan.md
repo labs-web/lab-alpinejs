@@ -2,7 +2,7 @@
 
 Ce plan décrit la nouvelle architecture pour le dossier `.agent`, basée sur une séparation claire entre identité (Rules), savoir (Resources), savoir-faire procédural (Workflows) et expertises techniques isolées (Skills).
 
-## 1. 📂 Architecture Cible
+## 1. 📂 Architecture Cible (Actuelle)
 
 ```tree
 .agent/
@@ -11,21 +11,23 @@ Ce plan décrit la nouvelle architecture pour le dossier `.agent`, basée sur un
 │   ├── load-global-context.md # Chargeur de contexte (Always On)
 │   ├── role-expert-lab.md  # Profil Expert R&D (Model Decision)
 │   ├── role-expert-context.md # Profil Gardien Contexte (Model Decision)
-│   └── [tech]-guidelines.md # Règles techniques (ex: alpine-best-practices)
+│   ├── alpine-guidelines.md # Règles techniques Alpine
+│   └── laravel-guidelines.md # Règles techniques Blade/Tailwind
 │
 ├── resources/              # "Ce que je sais" (Mémoire Froide)
-│   ├── context_domain.md   # Stack Technique & Projet (Source de Vérité)
+│   ├── carte_techno_globale.md # Stack Technique par Niveau (Source de Vérité)
 │   ├── referentiel-competences.md # Référentiel C1-C7
 │   ├── templates-lab-structure.md # Gabarit pour README.md
 │   └── templates-agent-creation.md # Gabarit pour Rules
 │
 ├── workflows/              # "Ce que je fais" (Procédures Automatisées)
 │   ├── init-structure.md   # Initialisation de projet (Lab, Agent)
-│   ├── create-component.md # (Exemple) Création composant
-│   └── [action].md         # Autres scripts d'actions
+│   ├── create-component.md # Création composant Alpine
+│   ├── init-lab.md         # (Obsolète)
+│   └── refactor-extract-alpine.md # Extraction logique JS
 │
 └── skills/                 # "Mes super-pouvoirs" (Expertise Pointue)
-    └── demo-alpine-debug/  # (Exemple) Procédure de débogage avancée
+    └── demo-alpine-debug/  # Procédure de débogage avancée
         └── SKILL.md
 ```
 
@@ -53,6 +55,6 @@ Ce plan décrit la nouvelle architecture pour le dossier `.agent`, basée sur un
 ## 3. 🚀 Workflow d'Interaction
 1.  **L'utilisateur parle**.
 2.  **Core Protocols** vérifie la sécurité (`??`).
-3.  **Global Loader** injecte le contexte métier (`context_domain`).
+3.  **Global Loader** injecte le contexte métier (`carte_techno_globale`).
 4.  **Le Modèle décide** quel rôle activer (ex: *Expert Lab* pour une question de code).
 5.  **L'Expert Lab** décide s'il a besoin d'un **Workflow** (ex: *Init Structure*) ou d'un **Skill** (ex: *Debug*) pour répondre.

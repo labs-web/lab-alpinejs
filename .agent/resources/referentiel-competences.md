@@ -7,7 +7,7 @@ version: "v1.0"
 
 ---
 
-## C1 — Concevoir et gérer un projet d'application (UI/UX & Modélisation)
+## C1 — Conception Centrée Utilisateur & Données
 
 - **Description courte**  
   Transformer une idée de projet en une vision claire : comprendre le contexte, les utilisateurs et les fonctionnalités, puis produire un dossier d’analyse et de conception exploitable par l’équipe technique.
@@ -27,7 +27,7 @@ version: "v1.0"
   - Prototype interactif (Figma/Xd).
   - Grille de feedback utilisateur.
 
-### Micro-compétence C1.2 — Modélisation UML & Technique
+### Micro-compétence C1.2 — Modélisation UML
 - **Activité** : Traduire les livrables du Design Thinking en langage technique standardisé (UML).
 - **Tâches clés**
   - Transformer les **Besoins Utilisateurs** et le **Prototype** en **Diagramme de Cas d'Utilisation** (Acteurs = Personas, Cas = Fonctionnalités prototype).
@@ -38,29 +38,12 @@ version: "v1.0"
   - Diagramme de Classes (issu du domaine métier).
   - Dictionnaire de données (issu des champs maquettes).
   - Dossier C1 consolidé (Design + Tech).
-
 ---
 
-## C2 — Développer une interface utilisateur (Front-End)
+## C2 — Modéliser les données et la base
 
 - **Description courte**  
-  Créer l'interface visible de l'application, en s'assurant qu'elle est responsive, accessible et interactive.
-
-- **Tâches clés**
-  - **Intégration** : Transformer les maquettes C1 en code HTML/CSS (Tailwind).
-  - **Logique Client** : Animer l'interface et gérer les états locaux (Alpine.js / JS Vanilla).
-  - **Accessibilité** : Respecter les normes HTML sémantiques.
-
-- **Livrables attendus**
-  - Vues Blade / HTML intégrées.
-  - Scripts JS fonctionnels.
-
----
-
-## C3 — Développer la partie Back-End (Base de données & Serveur)
-
-- **Description courte**  
-  Construire le coeur logique de l'application, gérer les données et les règles métier côté serveur.
+  Partir du modèle conceptuel (diagramme de classes C1) pour construire une base de données réelle sous Laravel : migrations, relations, données de test et premières requêtes.
 
 - **Tâches clés**
   - traduire le **diagramme de classes** en tables MySQL ;
@@ -79,7 +62,7 @@ version: "v1.0"
 
 ---
 
-## C4 — Organiser le travail et collaborer (Méthode & DevOps)
+## C4 — Organiser le travail et collaborer
 
 - **Description courte**  
   Mettre en place une organisation de travail d’équipe simple et robuste : Git, branches, pull requests et suivi des tâches visuel.
@@ -119,10 +102,10 @@ version: "v1.0"
 
 ---
 
-## C6 — Assurer la qualité (tests, données, outils) et la sécurité
+## C6 — Assurer la qualité (tests, données, outils)
 
 - **Description courte**  
-  Installer une culture de test minimale et sécuriser l'application contre les vulnérabilités courantes.
+  Installer une culture de test minimale : données de test cohérentes, cas de test simples, exécution régulière et suivi des bugs.
 
 - **Tâches clés**
   - préparer des **données de test** (seeders, jeux de données) ;
@@ -130,7 +113,6 @@ version: "v1.0"
   - exécuter des **tests manuels structurés** sur les fonctionnalités importantes ;
   - introduire des **tests automatisés simples** (selon le contexte) ;
   - analyser les **erreurs** et documenter les corrections.
-  - Appliquer les correctifs de sécurité (XSS, CSRF, Injection SQL).
 
 - **Livrables attendus**
   - jeux de données de test documentés ;

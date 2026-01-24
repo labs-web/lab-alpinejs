@@ -1,8 +1,8 @@
 ---
-title: "context_domain.md"
+title: "carte_techno_globale.md"
 version: "v2.1"
 role: "Stack technique officielle du projet fil rouge"
-reads_after: ["referentiel-competences.md"]
+reads_after: ["contexte_solicode.md", "contexte_filiere.md"]
 ---
 
 # 🛠️ Référentiel Technique & Stack — Projet Fil Rouge
