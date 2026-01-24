@@ -7,12 +7,10 @@ Ce plan décrit la nouvelle architecture pour le dossier `.agent`, basée sur un
 ```tree
 .agent/
 ├── rules/                  # "Qui je suis & Comment je travaille"
-│   ├── core-protocols.md   # Lois universelles (Sécurité, Éthique) (Always On)
-│   ├── load-global-context.md # Chargeur de contexte (Always On)
-│   ├── role-expert-lab.md  # Profil Expert R&D (Model Decision)
-│   ├── role-expert-context.md # Profil Gardien Contexte (Model Decision)
-│   ├── alpine-guidelines.md # Règles techniques Alpine
-│   └── laravel-guidelines.md # Règles techniques Blade/Tailwind
+│   ├── 01-core-constitution.md # Lois universelles + Global Context
+│   ├── 02-role-lab-assistant.md # Rôle Expert Pédagogue & Tech
+│   ├── tech-alpine-js.md   # Règles Alpine
+│   └── tech-laravel-blade.md # Règles Laravel/Blade
 │
 ├── resources/              # "Ce que je sais" (Mémoire Froide)
 │   ├── carte_techno_globale.md # Stack Technique par Niveau (Source de Vérité)
