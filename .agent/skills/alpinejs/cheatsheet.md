@@ -1,18 +1,13 @@
-# Alpine.js - Cheatsheet Rapide
+# Alpine.js - Cheatsheet Référence Rapide
 
-## Installation
+## Installation (Laravel + Vite)
 
-### CDN (Production)
-```html
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-```
-
-### NPM
 ```bash
 npm install alpinejs
 ```
 
 ```javascript
+// resources/js/app.js
 import Alpine from 'alpinejs'
 window.Alpine = Alpine
 Alpine.start()
@@ -20,348 +15,258 @@ Alpine.start()
 
 ## Directives Core
 
-| Directive      | Syntaxe                   | Description                             | Exemple                            |
-| -------------- | ------------------------- | --------------------------------------- | ---------------------------------- |
-| `x-data`       | `x-data="{ key: value }"` | Déclare un composant avec état          | `<div x-data="{ open: false }">`   |
-| `x-show`       | `x-show="expression"`     | Toggle `display: none`                  | `<div x-show="open">`              |
-| `x-if`         | `x-if="expression"`       | Ajoute/Retire du DOM (sur `<template>`) | `<template x-if="isAdmin">`        |
-| `x-for`        | `x-for="item in items"`   | Boucle (sur `<template>`)               | `<template x-for="user in users">` |
-| `x-on` / `@`   | `@event="handler"`        | Écoute événement                        | `<button @click="count++">`        |
-| `x-bind` / `:` | `:attr="value"`           | Lie attribut                            | `<input :value="name">`            |
-| `x-model`      | `x-model="variable"`      | Binding bidirectionnel                  | `<input x-model="username">`       |
-| `x-text`       | `x-text="expression"`     | Injecte texte                           | `<span x-text="count"></span>`     |
-| `x-html`       | `x-html="expression"`     | Injecte HTML                            | `<div x-html="richContent"></div>` |
-| `x-init`       | `x-init="code"`           | Exécuté à l'initialisation              | `x-init="loadData()"`              |
-| `x-cloak`      | `x-cloak`                 | Masque avant init Alpine                | `<div x-cloak>`                    |
-| `x-transition` | `x-transition`            | Ajoute transitions CSS                  | `<div x-show="open" x-transition>` |
-| `x-ref`        | `x-ref="name"`            | Référence élément                       | `<input x-ref="emailField">`       |
+| Directive      | Description                             | Exemple                                             |
+| -------------- | --------------------------------------- | --------------------------------------------------- |
+| `x-data`       | Déclare composant avec état             | `<div x-data="{ open: false }">`                    |
+| `x-show`       | Toggle `display: none`                  | `<div x-show="open">`                               |
+| `x-if`         | Ajoute/Retire du DOM (sur `<template>`) | `<template x-if="isAdmin">`                         |
+| `x-for`        | Boucle (sur `<template>`)               | `<template x-for="user in users" :key="user.id">`   |
+| `@click`       | Écoute événement (alias `x-on:`)        | `<button @click="count++">`                         |
+| `:disabled`    | Lie attribut (alias `x-bind:`)          | `<input :value="name">`                             |
+| `x-model`      | Binding bidirectionnel                  | `<input x-model="username">`                        |
+| `x-text`       | Injecte texte                           | `<span x-text="count"></span>`                      |
+| `x-html`       | Injecte HTML                            | `<div x-html="content"></div>`                      |
+| `x-init`       | Exécuté à l'initialisation              | `<div x-init="loadData()">`                         |
+| `x-cloak`      | Masque avant init Alpine                | `<div x-cloak>` + CSS `[x-cloak] { display: none }` |
+| `x-transition` | Ajoute transitions CSS                  | `<div x-show="open" x-transition>`                  |
+| `x-ref`        | Référence élément                       | `<input x-ref="emailField">`                        |
 
 ## Modificateurs d'Événements
 
-| Modificateur      | Description                     | Exemple                             |
-| ----------------- | ------------------------------- | ----------------------------------- |
-| `.prevent`        | `event.preventDefault()`        | `@submit.prevent="save()"`          |
-| `.stop`           | `event.stopPropagation()`       | `@click.stop="toggle()"`            |
-| `.outside`        | Détecte clic en dehors          | `@click.outside="close()"`          |
-| `.window`         | Écoute sur `window`             | `@keydown.window.escape="close()"`  |
-| `.document`       | Écoute sur `document`           | `@scroll.document="handleScroll()"` |
-| `.once`           | Exécute une seule fois          | `@click.once="init()"`              |
-| `.debounce`       | Debounce (300ms par défaut)     | `@input.debounce="search()"`        |
-| `.debounce.500ms` | Debounce personnalisé           | `@input.debounce.500ms="search()"`  |
-| `.throttle`       | Throttle (250ms par défaut)     | `@scroll.throttle="update()"`       |
-| `.self`           | Uniquement si event.target = el | `@click.self="close()"`             |
+| Modificateur      | Description               | Exemple                      |
+| ----------------- | ------------------------- | ---------------------------- |
+| `.prevent`        | `event.preventDefault()`  | `@submit.prevent="save()"`   |
+| `.stop`           | `event.stopPropagation()` | `@click.stop`                |
+| `.outside`        | Détecte clic en dehors    | `@click.outside="close()"`   |
+| `.window`         | Écoute sur `window`       | `@keydown.window.escape`     |
+| `.document`       | Écoute sur `document`     | `@scroll.document`           |
+| `.once`           | Exécute une seule fois    | `@click.once`                |
+| `.debounce`       | Debounce (300ms défaut)   | `@input.debounce="search()"` |
+| `.debounce.500ms` | Debounce personnalisé     | `@input.debounce.500ms`      |
+| `.throttle`       | Throttle (250ms défaut)   | `@scroll.throttle`           |
+| `.self`           | Si `event.target === el`  | `@click.self`                |
 
 ## Modificateurs de Touches
 
-| Modificateur             | Touche    | Exemple                          |
-| ------------------------ | --------- | -------------------------------- |
-| `.enter`                 | Enter     | `@keydown.enter="submit()"`      |
-| `.escape`                | Escape    | `@keydown.escape="close()"`      |
-| `.space`                 | Espace    | `@keydown.space="toggle()"`      |
-| `.tab`                   | Tab       | `@keydown.tab="nextField()"`     |
-| `.shift`                 | Shift     | `@keydown.shift="multiSelect()"` |
-| `.ctrl`                  | Ctrl      | `@keydown.ctrl.s="save()"`       |
-| `.cmd`                   | Cmd (Mac) | `@keydown.cmd.k="search()"`      |
-| `.up/.down/.left/.right` | Flèches   | `@keydown.up="previous()"`       |
+| Modificateur             | Touche    | Exemple                     |
+| ------------------------ | --------- | --------------------------- |
+| `.enter`                 | Enter     | `@keydown.enter="submit()"` |
+| `.escape`                | Escape    | `@keydown.escape="close()"` |
+| `.space`                 | Espace    | `@keydown.space`            |
+| `.tab`                   | Tab       | `@keydown.tab`              |
+| `.shift`                 | Shift     | `@keydown.shift`            |
+| `.ctrl`                  | Ctrl      | `@keydown.ctrl.s="save()"`  |
+| `.cmd`                   | Cmd (Mac) | `@keydown.cmd.k`            |
+| `.up/.down/.left/.right` | Flèches   | `@keydown.up`               |
 
 ## Magic Properties
 
 | Property    | Description             | Exemple                         |
 | ----------- | ----------------------- | ------------------------------- |
-| `$el`       | Élément DOM courant     | `@click="$el.remove()"`         |
+| `$el`       | Élément DOM courant     | `$el.remove()`                  |
 | `$refs`     | Accès aux `x-ref`       | `$refs.emailInput.focus()`      |
 | `$watch`    | Observer changements    | `$watch('count', v => log(v))`  |
 | `$dispatch` | Émettre événement       | `$dispatch('saved', { id: 1 })` |
 | `$nextTick` | Attendre rendu          | `$nextTick(() => focus())`      |
 | `$root`     | Élément racine `x-data` | `$root.querySelector('input')`  |
 | `$data`     | Accès aux données       | `$data.username`                |
-| `$id()`     | ID unique               | `$id('dropdown')`               |
-| `$store`    | Accès au store global   | `$store.cart.items`             |
+| `$store`    | Accès store global      | `$store.cart.items`             |
 
 ## Transitions
 
-### Durée
 ```html
-x-transition.duration.500ms
+<!-- Basique -->
+<div x-show="open" x-transition>
+
+<!-- Durée personnalisée -->
+<div x-transition.duration.500ms>
+
+<!-- Types prédéfinis -->
+<div x-transition.opacity>
+<div x-transition.scale>
+<div x-transition.scale.50>
+
+<!-- Personnalisées -->
+<div
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0 scale-90"
+    x-transition:enter-end="opacity-100 scale-100"
+    x-transition:leave="transition ease-in duration-300"
+    x-transition:leave-start="opacity-100 scale-100"
+    x-transition:leave-end="opacity-0 scale-90">
 ```
 
-### Types
-```html
-x-transition.opacity
-x-transition.scale
-x-transition.scale.50
-```
+## Classes Dynamiques
 
-### Personnalisées
 ```html
-x-transition:enter="transition ease-out duration-300"
-x-transition:enter-start="opacity-0 transform scale-90"
-x-transition:enter-end="opacity-100 transform scale-100"
-x-transition:leave="transition ease-in duration-300"
-x-transition:leave-start="opacity-100 transform scale-100"
-x-transition:leave-end="opacity-0 transform scale-90"
-```
-
-## Binding Classes/Styles
-
-### Classes Conditionnelles
-```html
+<!-- Conditionnelles -->
 :class="{ 'active': isActive, 'disabled': !canEdit }"
-```
 
-### Classes Dynamiques
-```html
+<!-- Ternaire -->
 :class="count > 5 ? 'text-red-500' : 'text-green-500'"
-```
 
-### Styles Inline
-```html
+<!-- Styles inline -->
 :style="{ color: isActive ? 'red' : 'blue' }"
 ```
 
-## Composants Réutilisables
+## Composants Réutilisables (Laravel + Vite)
 
-### Définir un Composant
 ```javascript
-document.addEventListener('alpine:init', () => {
-    Alpine.data('dropdown', () => ({
-        open: false,
-        
-        toggle() {
-            this.open = !this.open
-        },
-        
-        close() {
-            this.open = false
-        }
-    }))
+// resources/js/alpine/components/dropdown.js
+export default () => ({
+    open: false,
+    toggle() { this.open = !this.open }
 })
+
+// resources/js/app.js
+import dropdown from './alpine/components/dropdown'
+Alpine.data('dropdown', dropdown)
 ```
 
-### Utiliser le Composant
-```html
+```blade
+<!-- Utilisation -->
 <div x-data="dropdown">
     <button @click="toggle()">Menu</button>
     <div x-show="open" @click.outside="close()">...</div>
 </div>
 ```
 
-## Store Global (Alpine.store)
+## Store Global
 
-### Définir un Store
 ```javascript
-document.addEventListener('alpine:init', () => {
-    Alpine.store('cart', {
-        items: [],
-        total: 0,
-        
-        add(item) {
-            this.items.push(item)
-            this.total += item.price
-        },
-        
-        remove(id) {
-            const item = this.items.find(i => i.id === id)
-            this.items = this.items.filter(i => i.id !== id)
-            this.total -= item.price
-        }
-    })
+// resources/js/app.js
+Alpine.store('cart', {
+    items: [],
+    total: 0,
+    
+    add(item) {
+        this.items.push(item)
+        this.total += item.price
+    }
 })
 ```
 
-### Utiliser le Store
-```html
+```blade
+<!-- Utilisation -->
 <div x-data>
-    <p x-text="$store.cart.items.length"></p>
-    <p x-text="`Total: ${$store.cart.total}€`"></p>
+    <span x-text="$store.cart.items.length"></span>
     <button @click="$store.cart.add({ id: 1, price: 10 })">Ajouter</button>
 </div>
 ```
 
-## Plugins Utiles
-
-### Alpine Focus
-```javascript
-import focus from '@alpinejs/focus'
-Alpine.plugin(focus)
-```
+## Patterns One-Liner
 
 ```html
-<div x-data x-trap="isOpen">...</div>
-```
-
-### Alpine Collapse
-```javascript
-import collapse from '@alpinejs/collapse'
-Alpine.plugin(collapse)
-```
-
-```html
-<div x-show="open" x-collapse>...</div>
-```
-
-### Alpine Intersect
-```javascript
-import intersect from '@alpinejs/intersect'
-Alpine.plugin(intersect)
-```
-
-```html
-<div x-intersect="loadMore()">...</div>
-```
-
-### Alpine Persist
-```javascript
-import persist from '@alpinejs/persist'
-Alpine.plugin(persist)
-```
-
-```html
-<div x-data="{ count: $persist(0) }">...</div>
-```
-
-## Patterns Courants
-
-### Computed Properties
-```javascript
-x-data="{
-    firstName: 'John',
+<!-- Computed Property -->
+<div x-data="{ 
+    firstName: 'John', 
     lastName: 'Doe',
-    get fullName() {
-        return `${this.firstName} ${this.lastName}`
-    }
-}"
-```
+    get fullName() { return `${this.firstName} ${this.lastName}` }
+}">
 
-### Watchers
-```javascript
-x-init="$watch('search', value => {
-    console.log('Search changed:', value)
-})"
-```
+<!-- Watcher -->
+<div x-init="$watch('search', v => console.log(v))">
 
-### Init avec Fetch
-```javascript
-x-init="items = await (await fetch('/api/items')).json()"
-```
+<!-- Fetch Init -->
+<div x-init="items = await (await fetch('/api/items')).json()">
 
-### Debounced Search
-```html
-<input 
-    x-model="query"
-    @input.debounce.500ms="search()">
-```
+<!-- Debounced Search -->
+<input x-model="query" @input.debounce.500ms="search()">
 
-### Click Outside
-```html
-<div 
-    x-show="open"
-    @click.outside="open = false">
-</div>
-```
+<!-- Click Outside -->
+<div x-show="open" @click.outside="open = false">
 
-### Keyboard Shortcuts
-```html
+<!-- Keyboard Shortcut -->
 <div @keydown.window.ctrl.s.prevent="save()">
 ```
 
-## Anti-Patterns à Éviter
+## Laravel Integration
 
-❌ **NE PAS mélanger avec jQuery**
-```html
-<!-- Mauvais -->
-<button onclick="$('#menu').toggle()">
+```blade
+<!-- CSRF Token -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<!-- Passer Données PHP → Alpine -->
+<div x-data="{ 
+    articles: @json($articles),
+    csrfToken: '{{ csrf_token() }}'
+}">
+
+<!-- Route Laravel -->
+<div x-data="{ apiUrl: '{{ route('api.articles.index') }}' }">
 ```
 
-✅ **Utiliser Alpine**
-```html
-<!-- Bon -->
-<button @click="open = !open">
-```
-
----
-
-❌ **NE PAS manipuler le DOM directement**
 ```javascript
-// Mauvais
-document.getElementById('count').innerHTML = count
+// Requête avec CSRF
+async createArticle(data) {
+    const response = await fetch('/api/articles', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify(data)
+    });
+}
 ```
 
-✅ **Laisser Alpine gérer**
-```html
-<!-- Bon -->
-<span x-text="count"></span>
-```
+## Anti-Patterns
 
----
-
-❌ **NE PAS oublier `<template>` avec `x-for`**
 ```html
-<!-- Mauvais - NE FONCTIONNE PAS -->
-<li x-for="item in items"></li>
-```
+<!-- ❌ MAUVAIS -->
+<button onclick="document.querySelector('#menu').toggle()">
+<li x-for="item in items">                    <!-- Oubli <template> -->
 
-✅ **Toujours utiliser `<template>`**
-```html
-<!-- Bon -->
-<template x-for="item in items">
+<!-- ✅ BON -->
+<button @click="open = !open">
+<template x-for="item in items" :key="item.id">
     <li x-text="item"></li>
 </template>
 ```
 
+## Organisation Code (Laravel)
+
+```
+resources/js/
+├── app.js                    # Point d'entrée
+└── alpine/
+    ├── components/           # Composants réutilisables
+    │   ├── articleManager.js
+    │   ├── dropdown.js
+    │   └── modal.js
+    └── stores/              # Stores globaux
+        └── cart.js
+```
+
+## Plugins Optionnels
+
+```bash
+npm install @alpinejs/focus @alpinejs/collapse @alpinejs/intersect
+```
+
+```javascript
+import focus from '@alpinejs/focus'
+import collapse from '@alpinejs/collapse'
+import intersect from '@alpinejs/intersect'
+
+Alpine.plugin(focus)
+Alpine.plugin(collapse)
+Alpine.plugin(intersect)
+```
+
 ## Débogage
 
-### Afficher l'État
 ```html
+<!-- Afficher état -->
 <pre x-text="JSON.stringify($data, null, 2)"></pre>
-```
 
-### Logger les Changements
-```javascript
-x-init="$watch('count', value => console.log('Count:', value))"
-```
-
-### Inspecter avec DevTools
-```javascript
-// Dans la console
-Alpine.version // Version d'Alpine
-Alpine.$data(element) // Données d'un élément
+<!-- Logger changements -->
+<div x-init="$watch('count', v => console.log('Count:', v))">
 ```
 
 ## Ressources
 
-- 📖 **Doc Officielle** : [alpinejs.dev](https://alpinejs.dev)
-- 🎓 **Exemples Skill** : Voir `examples.md` pour cas d'usage avancés
-- 🔧 **Guide Complet** : Voir `SKILL.md` pour documentation exhaustive
-- 🌐 **Playground** : [alpinejs.dev/playground](https://alpinejs.dev/playground)
-
-## Support TypeScript
-
-```typescript
-declare global {
-    interface Window {
-        Alpine: any
-    }
-}
-
-import Alpine from 'alpinejs'
-
-window.Alpine = Alpine
-Alpine.start()
-
-export interface DropdownData {
-    open: boolean
-    toggle(): void
-    close(): void
-}
-
-Alpine.data('dropdown', (): DropdownData => ({
-    open: false,
-    toggle() { this.open = !this.open },
-    close() { this.open = false }
-}))
-```
-
----
-
-**Astuce** : Imprime cette cheatsheet et garde-la à portée de main ! 🚀
+- 📖 **SKILL.md** : Guide installation et bonnes pratiques Laravel
+- 📝 **examples.md** : Exemples complets (CRUD, modales, tabs)
+- 🌐 **Doc officielle** : [alpinejs.dev](https://alpinejs.dev)
+- 🎮 **Playground** : [alpinejs.dev/playground](https://alpinejs.dev/playground)

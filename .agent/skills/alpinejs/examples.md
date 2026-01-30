@@ -1,69 +1,102 @@
-# Exemples Alpine.js - Cas d'Usage Avancés
+# Exemples Alpine.js - Patterns Pratiques
 
-Ce document complète le SKILL.md avec des exemples pratiques d'applications réelles.
+Exemples d'implémentation réels avec **organisation professionnelle Laravel + Vite**.
 
-## 1. Gestion d'Articles CRUD Complète
+## Structure de Base
 
-### Recherche Dynamique avec Debounce
-```html
-<div x-data="articleManager">
-    <input 
-        type="text"
-        x-model="searchQuery"
-        @input.debounce.500ms="searchArticles()"
-        placeholder="Rechercher un article...">
-    
-    <div x-show="isSearching">🔍 Recherche en cours...</div>
-    
-    <ul>
-        <template x-for="article in filteredArticles" :key="article.id">
-            <li>
-                <h3 x-text="article.title"></h3>
-                <p x-text="article.excerpt"></p>
-            </li>
-        </template>
-    </ul>
-</div>
-
-<script>
-document.addEventListener('alpine:init', () => {
-    Alpine.data('articleManager', () => ({
-        articles: [],
-        searchQuery: '',
-        isSearching: false,
-        filteredArticles: [],
-        
-        async searchArticles() {
-            this.isSearching = true;
-            const response = await fetch(`/api/articles?search=${this.searchQuery}`);
-            this.filteredArticles = await response.json();
-            this.isSearching = false;
-        }
-    }))
-})
-</script>
+```
+resources/
+├── js/
+│   ├── app.js
+│   └── alpine/
+│       └── components/
+│           ├── articleManager.js
+│           ├── dropdown.js
+│           └── modal.js
+└── views/
+    └── articles/
+        └── index.blade.php
 ```
 
-### Filtrage par Statut (Select Dynamique)
-```html
-<div x-data="{ 
-    articles: [], 
+---
+
+## 1. Gestion Articles CRUD
+
+### Composant JS (`resources/js/alpine/components/articleManager.js`)
+```javascript
+export default () => ({
+    articles: [],
+    searchQuery: '',
     statusFilter: 'all',
+    isLoading: false,
+    csrfToken: document.querySelector('meta[name="csrf-token"]')?.content,
+    
+    async init() {
+        await this.loadArticles();
+    },
+    
+    async loadArticles() {
+        this.isLoading = true;
+        try {
+            const response = await fetch('/api/articles');
+            this.articles = await response.json();
+        } finally {
+            this.isLoading = false;
+        }
+    },
+    
+    async searchArticles() {
+        const params = new URLSearchParams({ 
+            q: this.searchQuery,
+            status: this.statusFilter 
+        });
+        const response = await fetch(`/api/articles?${params}`);
+        this.articles = await response.json();
+    },
+    
     get filteredArticles() {
         if (this.statusFilter === 'all') return this.articles;
         return this.articles.filter(a => a.status === this.statusFilter);
     }
-}" x-init="articles = await (await fetch('/api/articles')).json()">
+});
+```
+
+### Enregistrement (`resources/js/app.js`)
+```javascript
+import Alpine from 'alpinejs';
+import articleManager from './alpine/components/articleManager';
+
+Alpine.data('articleManager', articleManager);
+
+window.Alpine = Alpine;
+Alpine.start();
+```
+
+### Template Blade (`resources/views/articles/index.blade.php`)
+```blade
+@extends('layouts.app')
+
+@section('content')
+<div x-data="articleManager" x-init="init()">
+    <!-- Recherche -->
+    <input 
+        type="text"
+        x-model="searchQuery"
+        @input.debounce.500ms="searchArticles()"
+        placeholder="Rechercher...">
     
-    <select x-model="statusFilter">
-        <option value="all">Tous les articles</option>
+    <!-- Filtre Statut -->
+    <select x-model="statusFilter" @change="searchArticles()">
+        <option value="all">Tous</option>
         <option value="published">Publiés</option>
         <option value="draft">Brouillons</option>
     </select>
     
-    <p x-text="`${filteredArticles.length} article(s) affiché(s)`"></p>
+    <!-- Loader -->
+    <div x-show="isLoading">Chargement...</div>
     
-    <ul>
+    <!-- Liste -->
+    <ul x-show="!isLoading">
         <template x-for="article in filteredArticles" :key="article.id">
             <li>
                 <span x-text="article.title"></span>
@@ -75,406 +108,324 @@ document.addEventListener('alpine:init', () => {
         </template>
     </ul>
 </div>
+@endsection
 ```
 
-## 2. Modale de Création avec Formulaire
+---
 
-### Modale Animée avec Validation
-```html
-<div x-data="{ 
+## 2. Dropdown Réutilisable
+
+### Composant JS (`resources/js/alpine/components/dropdown.js`)
+```javascript
+export default () => ({
+    open: false,
+    
+    toggle() {
+        this.open = !this.open;
+    },
+    
+    close() {
+        this.open = false;
+    }
+});
+```
+
+### Template Blade
+```blade
+<div x-data="dropdown" class="relative">
+    <button @click="toggle()">Options</button>
+    
+    <div 
+        x-show="open"
+        @click.outside="close()"
+        x-transition
+        class="absolute bg-white shadow-lg">
+        <a href="#" @click="close()">Éditer</a>
+        <a href="#" @click="close()">Supprimer</a>
+    </div>
+</div>
+```
+
+---
+
+## 3. Modale avec Formulaire
+
+### Composant JS (`resources/js/alpine/components/articleModal.js`)
+```javascript
+export default () => ({
     showModal: false,
     form: { title: '', content: '', status: 'draft' },
     errors: {},
+    csrfToken: document.querySelector('meta[name="csrf-token"]')?.content,
     
-    async createArticle() {
-        // Validation simple
+    openModal() {
+        this.showModal = true;
+        this.resetForm();
+    },
+    
+    closeModal() {
+        this.showModal = false;
+        this.resetForm();
+    },
+    
+    resetForm() {
+        this.form = { title: '', content: '', status: 'draft' };
+        this.errors = {};
+    },
+    
+    validate() {
         this.errors = {};
         if (!this.form.title) this.errors.title = 'Le titre est requis';
         if (!this.form.content) this.errors.content = 'Le contenu est requis';
+        return Object.keys(this.errors).length === 0;
+    },
+    
+    async createArticle() {
+        if (!this.validate()) return;
         
-        if (Object.keys(this.errors).length > 0) return;
-        
-        // Envoi API
-        const response = await fetch('/api/articles', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.form)
-        });
-        
-        if (response.ok) {
-            this.showModal = false;
-            this.form = { title: '', content: '', status: 'draft' };
-            // Recharger la liste...
+        try {
+            const response = await fetch('/api/articles', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': this.csrfToken
+                },
+                body: JSON.stringify(this.form)
+            });
+            
+            if (response.ok) {
+                this.closeModal();
+                this.$dispatch('article-created');
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
         }
     }
-}">
-    <!-- Bouton Ouverture -->
-    <button 
-        @click="showModal = true"
-        class="bg-blue-600 text-white px-4 py-2 rounded">
-        + Nouvel Article
-    </button>
+});
+```
+
+### Template Blade
+```blade
+<div x-data="articleModal">
+    <!-- Bouton -->
+    <button @click="openModal()">+ Nouvel Article</button>
     
-    <!-- Overlay Modale -->
+    <!-- Modale -->
     <div 
         x-show="showModal"
         x-transition.opacity
-        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        class="fixed inset-0 bg-black/50 flex items-center justify-center">
         
-        <!-- Contenu Modale -->
         <div 
-            @click.outside="showModal = false"
-            @keydown.window.escape="showModal = false"
+            @click.outside="closeModal()"
+            @keydown.window.escape="closeModal()"
             x-transition.scale
-            class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-2xl">
+            class="bg-white p-8 rounded-lg w-full max-w-2xl">
             
-            <h2 class="text-2xl font-bold mb-4">Créer un Article</h2>
+            <h2>Créer un Article</h2>
             
             <form @submit.prevent="createArticle()">
                 <!-- Titre -->
-                <div class="mb-4">
-                    <label class="block mb-2">Titre</label>
+                <div>
                     <input 
                         type="text"
                         x-model="form.title"
-                        class="w-full border px-3 py-2 rounded"
                         :class="{ 'border-red-500': errors.title }">
-                    <p x-show="errors.title" x-text="errors.title" class="text-red-500 text-sm mt-1"></p>
+                    <p x-show="errors.title" x-text="errors.title" class="text-red-500"></p>
                 </div>
                 
                 <!-- Contenu -->
-                <div class="mb-4">
-                    <label class="block mb-2">Contenu</label>
+                <div>
                     <textarea 
                         x-model="form.content"
-                        rows="5"
-                        class="w-full border px-3 py-2 rounded"
                         :class="{ 'border-red-500': errors.content }"></textarea>
-                    <p x-show="errors.content" x-text="errors.content" class="text-red-500 text-sm mt-1"></p>
+                    <p x-show="errors.content" x-text="errors.content" class="text-red-500"></p>
                 </div>
                 
                 <!-- Statut -->
-                <div class="mb-6">
-                    <label class="block mb-2">Statut</label>
-                    <select x-model="form.status" class="w-full border px-3 py-2 rounded">
-                        <option value="draft">Brouillon</option>
-                        <option value="published">Publié</option>
-                    </select>
-                </div>
+                <select x-model="form.status">
+                    <option value="draft">Brouillon</option>
+                    <option value="published">Publié</option>
+                </select>
                 
                 <!-- Actions -->
-                <div class="flex justify-end gap-3">
-                    <button 
-                        type="button"
-                        @click="showModal = false"
-                        class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
-                        Annuler
-                    </button>
-                    <button 
-                        type="submit"
-                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                        Créer
-                    </button>
-                </div>
+                <button type="button" @click="closeModal()">Annuler</button>
+                <button type="submit">Créer</button>
             </form>
         </div>
     </div>
 </div>
 ```
 
-## 3. Suppression Asynchrone avec Confirmation
+---
 
-```html
-<div x-data="{ 
-    articles: [],
-    deleteId: null,
-    showDeleteConfirm: false,
-    
-    confirmDelete(id) {
-        this.deleteId = id;
-        this.showDeleteConfirm = true;
-    },
-    
-    async deleteArticle() {
+## 4. Suppression avec Confirmation
+
+### Composant JS (Ajout à `articleManager.js`)
+```javascript
+deleteId: null,
+showDeleteConfirm: false,
+
+confirmDelete(id) {
+    this.deleteId = id;
+    this.showDeleteConfirm = true;
+},
+
+async deleteArticle() {
+    try {
         const response = await fetch(`/api/articles/${this.deleteId}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': this.csrfToken
+            }
         });
         
         if (response.ok) {
-            // Supprimer de la liste locale
             this.articles = this.articles.filter(a => a.id !== this.deleteId);
             this.showDeleteConfirm = false;
-            this.deleteId = null;
         }
+    } catch (error) {
+        console.error('Erreur:', error);
     }
-}" x-init="articles = await (await fetch('/api/articles')).json()">
+}
+```
+
+### Template Blade
+```blade
+<!-- Bouton Supprimer -->
+<button @click="confirmDelete(article.id)">🗑️</button>
+
+<!-- Modale Confirmation -->
+<div 
+    x-show="showDeleteConfirm"
+    x-transition.opacity
+    class="fixed inset-0 bg-black/50 flex items-center justify-center">
     
-    <!-- Liste -->
-    <ul>
-        <template x-for="article in articles" :key="article.id">
-            <li class="flex justify-between items-center p-3 border-b">
-                <span x-text="article.title"></span>
-                <button 
-                    @click="confirmDelete(article.id)"
-                    class="text-red-600 hover:text-red-800">
-                    🗑️ Supprimer
-                </button>
-            </li>
-        </template>
-    </ul>
-    
-    <!-- Modale de Confirmation -->
-    <div 
-        x-show="showDeleteConfirm"
-        x-transition.opacity
-        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div @click.outside="showDeleteConfirm = false" class="bg-white p-6 rounded">
+        <h3>⚠️ Confirmation</h3>
+        <p>Voulez-vous vraiment supprimer cet article ?</p>
         
-        <div 
-            @click.outside="showDeleteConfirm = false"
-            class="bg-white p-6 rounded-lg shadow-xl">
-            
-            <h3 class="text-xl font-bold mb-4">⚠️ Confirmation</h3>
-            <p class="mb-6">Voulez-vous vraiment supprimer cet article ?</p>
-            
-            <div class="flex gap-3 justify-end">
-                <button 
-                    @click="showDeleteConfirm = false"
-                    class="px-4 py-2 bg-gray-200 rounded">
-                    Annuler
-                </button>
-                <button 
-                    @click="deleteArticle()"
-                    class="px-4 py-2 bg-red-600 text-white rounded">
-                    Supprimer
-                </button>
-            </div>
-        </div>
+        <button @click="showDeleteConfirm = false">Annuler</button>
+        <button @click="deleteArticle()" class="bg-red-600 text-white">Supprimer</button>
     </div>
 </div>
 ```
 
-## 4. Tabs (Onglets) Dynamiques
+---
 
-```html
-<div x-data="{ activeTab: 'infos' }">
-    <!-- Navigation Tabs -->
+## 5. Tabs (Onglets)
+
+### Composant JS (`resources/js/alpine/components/tabs.js`)
+```javascript
+export default () => ({
+    activeTab: 'infos',
+    
+    switchTab(tab) {
+        this.activeTab = tab;
+    }
+});
+```
+
+### Template Blade
+```blade
+<div x-data="tabs">
+    <!-- Navigation -->
     <div class="flex border-b">
         <button 
-            @click="activeTab = 'infos'"
-            :class="{ 'border-b-2 border-blue-600 text-blue-600': activeTab === 'infos' }"
-            class="px-4 py-2">
+            @click="switchTab('infos')"
+            :class="{ 'border-blue-600': activeTab === 'infos' }">
             Informations
         </button>
         <button 
-            @click="activeTab = 'settings'"
-            :class="{ 'border-b-2 border-blue-600 text-blue-600': activeTab === 'settings' }"
-            class="px-4 py-2">
+            @click="switchTab('settings')"
+            :class="{ 'border-blue-600': activeTab === 'settings' }">
             Paramètres
-        </button>
-        <button 
-            @click="activeTab = 'history'"
-            :class="{ 'border-b-2 border-blue-600 text-blue-600': activeTab === 'history' }"
-            class="px-4 py-2">
-            Historique
         </button>
     </div>
     
-    <!-- Contenu Tabs -->
-    <div class="p-4">
+    <!-- Contenu -->
+    <div>
         <div x-show="activeTab === 'infos'" x-transition>
-            <h2 class="text-xl font-bold">Informations</h2>
-            <p>Contenu du tab Informations...</p>
+            Contenu Informations
         </div>
-        
         <div x-show="activeTab === 'settings'" x-transition>
-            <h2 class="text-xl font-bold">Paramètres</h2>
-            <p>Contenu du tab Paramètres...</p>
-        </div>
-        
-        <div x-show="activeTab === 'history'" x-transition>
-            <h2 class="text-xl font-bold">Historique</h2>
-            <p>Contenu du tab Historique...</p>
+            Contenu Paramètres
         </div>
     </div>
 </div>
 ```
 
-## 5. Accordion (Accordéon)
-
-```html
-<div x-data="{ openItem: null }">
-    <template x-for="(item, index) in [
-        { title: 'Question 1', content: 'Réponse 1' },
-        { title: 'Question 2', content: 'Réponse 2' },
-        { title: 'Question 3', content: 'Réponse 3' }
-    ]" :key="index">
-        <div class="border-b">
-            <!-- Header -->
-            <button 
-                @click="openItem = (openItem === index ? null : index)"
-                class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
-                <span x-text="item.title" class="font-semibold"></span>
-                <span x-text="openItem === index ? '−' : '+'" class="text-xl"></span>
-            </button>
-            
-            <!-- Content -->
-            <div 
-                x-show="openItem === index"
-                x-transition.duration.300ms
-                x-collapse
-                class="p-4 bg-gray-50">
-                <p x-text="item.content"></p>
-            </div>
-        </div>
-    </template>
-</div>
-```
+---
 
 ## 6. Toast Notifications
 
-```html
-<div x-data="{ 
+### Composant JS (`resources/js/alpine/components/toaster.js`)
+```javascript
+export default () => ({
     notifications: [],
     
     notify(message, type = 'info') {
         const id = Date.now();
         this.notifications.push({ id, message, type });
         
-        // Auto-remove après 3 secondes
         setTimeout(() => {
             this.notifications = this.notifications.filter(n => n.id !== id);
         }, 3000);
     }
-}">
-    <!-- Boutons de test -->
-    <button @click="notify('Sauvegarde réussie !', 'success')" class="bg-green-600 text-white px-4 py-2 rounded">
-        Success
-    </button>
-    <button @click="notify('Une erreur est survenue', 'error')" class="bg-red-600 text-white px-4 py-2 rounded">
-        Error
-    </button>
-    
-    <!-- Container des Toasts -->
+});
+```
+
+### Template Blade (Layout principal)
+```blade
+<div x-data="toaster" @notify.window="notify($event.detail.message, $event.detail.type)">
+    <!-- Container Toasts -->
     <div class="fixed top-4 right-4 z-50 space-y-2">
         <template x-for="notif in notifications" :key="notif.id">
             <div 
-                x-transition.opacity.duration.300ms
+                x-transition.opacity
                 :class="{
                     'bg-green-500': notif.type === 'success',
                     'bg-red-500': notif.type === 'error',
                     'bg-blue-500': notif.type === 'info'
                 }"
-                class="text-white px-6 py-3 rounded shadow-lg flex items-center gap-3">
+                class="text-white px-6 py-3 rounded shadow-lg">
                 <span x-text="notif.message"></span>
-                <button 
-                    @click="notifications = notifications.filter(n => n.id !== notif.id)"
-                    class="text-white/80 hover:text-white">
-                    ✕
-                </button>
+                <button @click="notifications = notifications.filter(n => n.id !== notif.id)">✕</button>
             </div>
         </template>
     </div>
+    
+    @yield('content')
 </div>
 ```
 
-## 7. Infinite Scroll
-
-```html
-<div x-data="{ 
-    articles: [],
-    page: 1,
-    hasMore: true,
-    isLoading: false,
-    
-    async loadMore() {
-        if (this.isLoading || !this.hasMore) return;
-        
-        this.isLoading = true;
-        const response = await fetch(`/api/articles?page=${this.page}`);
-        const data = await response.json();
-        
-        this.articles = [...this.articles, ...data.articles];
-        this.hasMore = data.hasMore;
-        this.page++;
-        this.isLoading = false;
-    }
-}" 
-x-init="loadMore()"
-x-intersect:enter="loadMore()">
-    
-    <ul>
-        <template x-for="article in articles" :key="article.id">
-            <li class="p-4 border-b">
-                <h3 x-text="article.title" class="font-bold"></h3>
-                <p x-text="article.excerpt"></p>
-            </li>
-        </template>
-    </ul>
-    
-    <div x-show="isLoading" class="text-center p-4">
-        Chargement...
-    </div>
-    
-    <div x-show="!hasMore && !isLoading" class="text-center p-4 text-gray-500">
-        Fin de la liste
-    </div>
-</div>
+### Utilisation depuis un autre composant
+```javascript
+// Dans articleModal.js après création
+this.$dispatch('notify', { message: 'Article créé !', type: 'success' });
 ```
 
-## Conseils d'Intégration Laravel Blade
+---
 
-### 1. Passer des Données PHP → Alpine
-```php
-<!-- Dans le Controller -->
-$articles = Article::all();
-return view('articles.index', compact('articles'));
+## Configuration CSRF Laravel
+
+### Layout Principal (`resources/views/layouts/app.blade.php`)
+```blade
+<head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
 ```
 
-```html
-<!-- Dans la Vue Blade -->
-<div x-data="{ 
-    articles: @json($articles),
-    searchQuery: ''
-}">
-    <!-- Utiliser articles directement -->
-</div>
+### Accès dans Composants Alpine
+```javascript
+csrfToken: document.querySelector('meta[name="csrf-token"]')?.content
 ```
 
-### 2. CSRF Token pour Requêtes POST
-```html
-<div x-data="{ 
-    csrfToken: '{{ csrf_token() }}',
-    
-    async createArticle(data) {
-        const response = await fetch('/api/articles', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': this.csrfToken
-            },
-            body: JSON.stringify(data)
-        });
-    }
-}">
-</div>
-```
-
-### 3. Routes Laravel dans Alpine
-```html
-<div x-data="{ 
-    apiUrl: '{{ route('api.articles.index') }}',
-    
-    async fetchArticles() {
-        const response = await fetch(this.apiUrl);
-        return await response.json();
-    }
-}">
-</div>
-```
+---
 
 ## Navigation dans le Skill
 
-- 📖 **SKILL.md** : Guide complet des directives et concepts Alpine.js
-- 📝 **cheatsheet.md** : Référence rapide pour syntaxe et patterns
-- 🔧 **README.md** : Documentation du skill et principes d'utilisation
-- 🌐 **Documentation officielle** : [alpinejs.dev](https://alpinejs.dev)
+- 📖 **SKILL.md** : Installation, organisation, bonnes pratiques
+- 📝 **cheatsheet.md** : Référence rapide syntaxe
+- 🌐 **Doc officielle** : [alpinejs.dev](https://alpinejs.dev)
