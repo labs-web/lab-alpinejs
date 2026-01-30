@@ -28,8 +28,13 @@ Il implémente une interface de gestion d'articles (CRUD) **sans rechargement de
     ```bash
     cp .env.example .env
     php artisan key:generate
-    touch database/database.sqlite
-    # configurer DB_CONNECTION=sqlite dans .env
+    # Configurer MySQL dans .env :
+    # DB_CONNECTION=mysql
+    # DB_HOST=127.0.0.1
+    # DB_PORT=3306
+    # DB_DATABASE=laravel
+    # DB_USERNAME=root
+    # DB_PASSWORD=
     ```
 
 3.  **Migration**
