@@ -44,6 +44,12 @@ resources/js/alpine/
 - **Blade** : Template propre, minimal
 - **JS** : Logique complexe dans fichiers séparés (`resources/js/alpine/components/`)
 
+### Bibliothèque d'Icônes
+- **Lucide Icons** : 1,300+ icônes SVG pour Laravel Blade
+- Guide complet : Voir `lucide-icons.md`
+- Installation : `composer require mallardduck/blade-lucide-icons`
+- Usage : `<x-lucide-loader-2 class="animate-spin h-5 w-5" />`
+
 ## ✨ Différences avec Approches Classiques
 
 ### Alpine Classique (CDN)

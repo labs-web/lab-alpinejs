@@ -2,17 +2,20 @@
 
 @section('content')
     <div x-data="articleManager({ 
-                    articles: {{ Js::from($articles) }}, 
-                    search: '{{ $search ?? '' }}',
-                    createUrl: '{{ route('articles.store') }}',
-                    csrf: '{{ csrf_token() }}'
-                })" class="space-y-6">
+                                    articles: {{ Js::from($articles) }}, 
+                                    search: '{{ $search ?? '' }}',
+                                    createUrl: '{{ route('articles.store') }}',
+                                    csrf: '{{ csrf_token() }}'
+                                })" class="space-y-6">
         <!-- Barre de recherche et Bouton Ajouter -->
         <div class="flex justify-between items-center">
             <div class="relative w-1/3">
                 <input type="text" x-model="search" @input.debounce.300ms="fetchArticles()" placeholder="Rechercher..."
                     class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2 border">
-                <span x-show="loading" class="absolute right-3 top-2 text-gray-400">Loading...</span>
+                <!-- Mini spinner dans le champ de recherche (Lucide NPM) -->
+                <span x-show="loading" class="absolute right-3 top-3">
+                    <i data-lucide="loader-2" class="animate-spin h-5 w-5 text-indigo-600"></i>
+                </span>
             </div>
 
             <div class="w-1/4 ml-4">
@@ -24,13 +27,23 @@
                 </select>
             </div>
 
-            <button @click="openModal()" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
-                Nouvel Article
+
+            <button @click="openModal()"
+                class="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">
+                <i data-lucide="plus" class="h-5 w-5"></i>
+                <span>Nouvel Article</span>
             </button>
         </div>
 
+        <!-- Spinner de Chargement (Lucide NPM) -->
+        <div x-show="loading" class="flex justify-center items-center py-12">
+            <div class="relative">
+                <i data-lucide="loader-2" class="animate-spin h-12 w-12 text-indigo-600"></i>
+            </div>
+        </div>
+
         <!-- Liste des Articles -->
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div x-show="!loading" class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <template x-for="article in articles" :key="article.id">
                 <div class="bg-white overflow-hidden shadow rounded-lg p-6">
                     <h3 class="text-lg font-medium text-gray-900" x-text="article.title"></h3>
@@ -40,7 +53,10 @@
                             :class="article.is_published ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'"
                             x-text="article.is_published ? 'Publié' : 'Brouillon'"></span>
                         <button @click="deleteArticle(article.id)"
-                            class="text-red-600 hover:text-red-900 text-sm">Supprimer</button>
+                            class="flex items-center gap-1 text-red-600 hover:text-red-900 transition text-sm">
+                            <i data-lucide="trash-2" class="h-4 w-4"></i>
+                            <span>Supprimer</span>
+                        </button>
                     </div>
                 </div>
             </template>
