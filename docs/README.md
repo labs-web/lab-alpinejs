@@ -22,5 +22,23 @@ Ce tutoriel approfondit les interactions en apprenant à écouter les actions de
 **Objectif :** Consommer une API externe avec `fetch` et `x-init`.
 Ce module aborde la communication avec des services externes, essentielle pour charger des données dynamiques dans vos applications.
 
+## 🚀 Documentation Avancée
+
+### [Advanced](./advanced/)
+Guides pour applications à grande échelle :
+- **[Gestion de Multiples Composants](./advanced/multi-components-registry.md)** - Auto-import, organisation modulaire, lazy loading pour applications avec 100+ composants
+
+## 🎓 Comprendre le Mini-Projet
+
+- **[Mini-Projet CRUD : Explication Complète](./mini-projet-explained.md)**
+  - Architecture globale Laravel + Alpine.js + Vite
+  - Flux complet de la requête GET (étape par étape)
+  - Analyse détaillée de `ArticleController@index()`
+  - Configuration Alpine.js dans `app.js`
+  - Composant `articleManager.js` expliqué ligne par ligne
+  - Template Blade `index.blade.php` et directives Alpine
+  - Interactions dynamiques (recherche, création, suppression)
+  - Diagrammes de flux illustrés
+
 ---
 Pour un aperçu global de la progression pédagogique, consultez le [Plan des Tutoriels](./plan-tuto.md).

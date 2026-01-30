@@ -1,54 +1,123 @@
 # Mini-Projet : Gestion d'Articles avec Alpine.js
 
-Ce projet Laravel démontre l'intégration d'**Alpine.js** dans un contexte "Monolithique" (Blade).
-Il implémente une interface de gestion d'articles (CRUD) **sans rechargement de page** pour les actions courantes, grâce à l'interactivité d'Alpine.
+## ✅ Organisation Professionnelle (Laravel + Vite)
 
-## Fonctionnalités Clés
+### 📁 Structure du Projet
 
-*   **Recherche Dynamique** : Filtrage par titre en temps réel (Debounce) via API.
-*   **Filtrage par Statut** : Sélection (Tous / Publiés / Brouillons) mettant à jour la liste.
-*   **Modale de Création** : Formulaire dans une modale animée (`x-show` / `x-transition`) pour créer des articles sans quitter la page.
-*   **Suppression Asynchrone** : Suppression d'éléments de la liste avec confirmation.
+```
+mini-projet/
+├── app/
+│   └── Http/Controllers/
+│       └── ArticleController.php      # CRUD complet
+├── resources/
+│   ├── css/
+│   │   └── app.css                    # Tailwind CSS
+│   ├── js/
+│   │   ├── app.js                     # Point d'entrée Alpine + Vite
+│   │   ├── bootstrap.js               # Configuration Axios
+│   │   └── alpine/
+│   │       └── components/
+│   │           └── articleManager.js  # Composant Alpine réutilisable
+│   └── views/
+│       ├── layouts/
+│       │   └── app.blade.php          # Layout principal (@vite)
+│       └── articles/
+│           └── index.blade.php        # Template propre (CRUD)
+├── package.json                       # Alpine.js installé via NPM
+└── vite.config.js                     # Configuration Vite
+```
 
-## Stack Technique
+### ✨ Bonnes Pratiques Appliquées
 
-*   **Back-end** : Laravel 10+ (Controllers API-friendly).
-*   **Front-end** : Blade + Alpine.js (v3) + Tailwind CSS.
-*   **Approche** : "Locality of Behavior" (Tout le JS est dans `index.blade.php`).
+#### 1. **Installation Alpine via Vite** ✅
+```json
+// package.json
+{
+  "dependencies": {
+    "alpinejs": "^3.15.5"
+  }
+}
+```
 
-## Installation et Démarrage
+#### 2. **Séparation JS / Blade** ✅
+- **Blade** : Template propre, minimal (97 lignes vs 183 avant)
+- **JS** : Logique dans `resources/js/alpine/components/articleManager.js`
 
-1.  **Installation des dépendances**
-    ```bash
-    composer install
-    npm install
-    ```
+#### 3. **Vite en Production** ✅
+```blade
+<!-- resources/views/layouts/app.blade.php -->
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+<!-- ❌ Plus de CDN ! -->
+```
 
-2.  **Configuration Environnement**
-    ```bash
-    cp .env.example .env
-    php artisan key:generate
-    # Configurer MySQL dans .env :
-    # DB_CONNECTION=mysql
-    # DB_HOST=127.0.0.1
-    # DB_PORT=3306
-    # DB_DATABASE=laravel
-    # DB_USERNAME=root
-    # DB_PASSWORD=
-    ```
+#### 4. **Composants Alpine Organisés** ✅
+```javascript
+// resources/js/app.js
+import Alpine from 'alpinejs';
+import articleManager from './alpine/components/articleManager';
 
-3.  **Migration**
-    ```bash
-    php artisan migrate --seed
-    ```
+Alpine.data('articleManager', articleManager);
+Alpine.start();
+```
 
-4.  **Lancement**
-    ```bash
-    npm run dev
-    php artisan serve
-    ```
+#### 5. **CSRF Token Configuré** ✅
+```blade
+<meta name="csrf-token" content="{{ csrf_token() }}">
+```
 
-## Structure du Code
+### 🚀 Fonctionnalités CRUD
 
-*   `resources/views/articles/index.blade.php` : Contient tout le composant Alpine `articleManager`.
-*   `app/Http/Controllers/ArticleController.php` : Gère les requêtes normales ET les requêtes AJAX/JSON.
+- ✅ **Recherche Dynamique** : Debounce 300ms
+- ✅ **Filtrage par Statut** : Publié / Brouillon
+- ✅ **Création** : Modale avec formulaire
+- ✅ **Suppression** : Confirmation avant delete
+- ✅ **Chargement Asynchrone** : Fetch API propre
+
+### 🎯 Commandes
+
+```bash
+# Installation
+composer install
+npm install
+
+# Migration
+php artisan migrate --seed
+
+# Développement
+npm run dev           # Terminal 1 : Vite
+php artisan serve     # Terminal 2 : Laravel
+```
+
+### 📊 Comparaison Avant/Après
+
+| Aspect             | Avant ❌                       | Après ✅                            |
+| ------------------ | ----------------------------- | ---------------------------------- |
+| **Alpine.js**      | CDN                           | NPM + Vite                         |
+| **Tailwind**       | CDN                           | NPM + Vite                         |
+| **Code JS**        | Inline dans Blade (85 lignes) | Fichier séparé `articleManager.js` |
+| **Template Blade** | 183 lignes                    | 97 lignes (-47%)                   |
+| **Organisation**   | Tout mélangé                  | Séparation claire                  |
+| **Production**     | CDN externe                   | Build optimisé Vite                |
+
+### 🎨 Patterns Alpine Utilisés
+
+- `x-data` : État du composant
+- `x-model` : Binding bidirectionnel
+- `@input.debounce.300ms` : Recherche avec debounce
+- `x-for` : Boucle sur articles
+- `x-show` : Affichage conditionnel
+- `x-transition` : Animations modale
+- `@click.outside` : Fermer modale en cliquant dehors
+
+### 📚 Documentation
+
+Voir `.agent/skills/alpinejs/` pour :
+- **SKILL.md** : Guide complet Alpine + Laravel
+- **examples.md** : Patterns avancés
+- **cheatsheet.md** : Référence rapide
+
+---
+
+**Version** : 2.0 (Professional Laravel + Vite)  
+**Alpine.js** : v3.15.5  
+**Laravel** : v11.x
