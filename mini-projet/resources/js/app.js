@@ -1,4 +1,5 @@
 import './bootstrap';
+import 'preline';
 
 // Import Alpine.js depuis node_modules
 import Alpine from 'alpinejs';
