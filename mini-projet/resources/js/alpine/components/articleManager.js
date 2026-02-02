@@ -1,5 +1,6 @@
 export default ({ articles, search, createUrl, csrf }) => ({
-    articles: articles,
+    articles: articles.data || [],
+    pagination: articles, // Store the full paginator object (meta + links)
     search: search,
     filterStatus: '',
     loading: false,
@@ -10,25 +11,47 @@ export default ({ articles, search, createUrl, csrf }) => ({
         is_published: false
     },
 
-    async fetchArticles() {
+    async fetchArticles(url = null) {
         this.loading = true;
         try {
-            const params = new URLSearchParams({
-                search: this.search,
-                filter_status: this.filterStatus
-            });
-            const response = await fetch(`?${params.toString()}`, {
+            let fetchUrl;
+
+            if (url) {
+                // If a specific URL is provided (pagination link), use it.
+                // It already contains page and query params thanks to Laravel's append()
+                fetchUrl = url;
+            } else {
+                // Otherwise (search/filter), build the URL from scratch (starts at page 1)
+                const params = new URLSearchParams({
+                    search: this.search,
+                    filter_status: this.filterStatus
+                });
+                fetchUrl = `?${params.toString()}`;
+            }
+
+            const response = await fetch(fetchUrl, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
                     'Accept': 'application/json'
                 }
             });
-            this.articles = await response.json();
+
+            const data = await response.json();
+
+            // Update articles list and pagination meta
+            this.articles = data.data;
+            this.pagination = data;
+
         } catch (e) {
             console.error('Erreur lors du chargement des articles:', e);
         } finally {
             this.loading = false;
         }
+    },
+
+    changePage(url) {
+        if (!url) return;
+        this.fetchArticles(url);
     },
 
     openModal() {
@@ -51,7 +74,7 @@ export default ({ articles, search, createUrl, csrf }) => ({
 
             if (response.ok) {
                 this.showModal = false;
-                this.search = ''; // Reset search to see new item
+                this.search = ''; // Reset search
                 this.fetchArticles(); // Reload list
             } else {
                 const error = await response.json();

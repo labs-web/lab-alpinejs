@@ -22,7 +22,7 @@ class ArticleController extends Controller
             }
         }
 
-        $articles = $query->latest()->get();
+        $articles = $query->latest()->paginate(9)->appends($request->query());
 
         if ($request->wantsJson()) {
             return response()->json($articles);
