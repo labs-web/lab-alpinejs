@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Groups - Molecule</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+</head>
+
+<body class="bg-gray-50 p-8 dark:bg-slate-900">
+    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6 dark:bg-slate-900 dark:border-gray-700">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Form Groups</h1>
+                <a href="https://preline.co/docs/input.html" target="_blank"
+                    class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800">
+                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="16" x2="8" y1="13" y2="13" />
+                        <line x1="16" x2="8" y1="17" y2="17" />
+                        <polyline points="10 9 9 9 8 9" />
+                    </svg>
+                    Documentation
+                </a>
+            </div>
+
+            <div class="space-y-8 max-w-sm">
+                <!-- Basic Input -->
+                <div>
+                    <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Email</label>
+                    <input type="email" id="input-label"
+                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                        placeholder="you@site.com">
+                    <p class="text-sm text-gray-500 mt-2" id="hs-input-helper-text">We'll never share your details.</p>
+                </div>
+
+                <!-- Input with Error -->
+                <div>
+                    <label for="input-label-error" class="block text-sm font-medium mb-2 dark:text-white">Email</label>
+                    <div class="relative">
+                        <input type="email" id="input-label-error" name="input-label-error"
+                            class="py-3 px-4 block w-full border-red-500 rounded-lg text-sm focus:border-red-500 focus:ring-red-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                            required aria-describedby="email-error">
+                        <div class="absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3">
+                            <svg class="flex-shrink-0 size-4 text-red-500" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" x2="12" y1="8" y2="12" />
+                                <line x1="12" x2="12.01" y1="16" y2="16" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-sm text-red-600 mt-2" id="email-error">Please include a valid email address so we can
+                        get back to you</p>
+                </div>
+
+                <!-- Select -->
+                <div>
+                    <label for="hs-select-label" class="block text-sm font-medium mb-2 dark:text-white">Role</label>
+                    <select id="hs-select-label"
+                        class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                        <option selected>Open this select menu</option>
+                        <option>Admin</option>
+                        <option>User</option>
+                        <option>Guest</option>
+                    </select>
+                </div>
+
+                <!-- Textarea -->
+                <div>
+                    <label for="textarea-label" class="block text-sm font-medium mb-2 dark:text-white">Comment</label>
+                    <textarea id="textarea-label"
+                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                        rows="3" placeholder="Say hello..."></textarea>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
