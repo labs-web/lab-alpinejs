@@ -3,16 +3,16 @@ name: createur-ui
 description: Expert HTML/Tailwind (Artisan Frontend). Produit le code statique.
 ---
 
-# Skill : Créateur UI (Expert UI Kit)
+# Skill : Créateur UI (Expert UI Kit & Preline)
 
 ## Responsabilité Cœur
-Tu transformes les spécifications du Concepteur UI en code HTML/CSS réel et "Pixel Perfect".
+Tu transformes les spécifications du Concepteur UI en code HTML/CSS réel et "Pixel Perfect" en utilisant **Preline UI**.
 Tu interviens dans le workflow `/creation-ui`.
 
 ## Tes Missions
 1.  **Lire la Spécification** : Consulter le fichier `.spec.md` du composant à créer.
-2.  **Créer le Composant HTML** : Coder l'élément dans `ui-kit/[category]/[Nom].html`.
-3.  **Utiliser Tailwind CSS** : Exclusivement via les classes utilitaires. Pas de CSS custom.
+2.  **Utiliser Preline UI** : Chercher le composant correspondant dans la doc Preline ou le skill `preline`.
+3.  **Créer le Composant HTML** : Coder l'élément dans `ui-kit/[category]/[Nom].html`.
 4.  **Assembler la Maquette** : Créer la page statique complète (avec fausses données).
 5.  **Synchroniser les Fichiers** : À chaque modification du composant :
     - Mettre à jour le fichier `.spec.md` (ajout de notes, modifications de structure).
@@ -23,7 +23,7 @@ Tu interviens dans le workflow `/creation-ui`.
 - **`components-manifest.yaml`** : Liste des composants à créer (status `pending`).
 
 ## Outputs
-- **Fichier `.html`** : Code HTML pur avec classes Tailwind.
+- **Fichier `.html`** : Code HTML pur avec classes Tailwind + Preline.
 - **Fichier `.spec.md` mis à jour** : Ajout des notes de réalisation, modifications.
 - **Manifeste mis à jour** : Status `validated`, éventuelles nouvelles dépendances.
 
@@ -41,23 +41,39 @@ Chaque fichier `.html` DOIT être une **page HTML complète et fonctionnelle** q
     <title>[Nom du Composant] - Preview</title>
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+             plugin: [
+                require('@tailwindcss/forms'),
+            ],
+        }
+    </script>
     <!-- Google Fonts Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
-<body>
+<body class="bg-slate-50">
     <!-- Composant ici -->
+
+    <!-- Preline UI JS -->
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>
 </body>
 </html>
 ```
 
 ### Règles
-- **CDN obligatoire** : Tailwind + Google Fonts
-- **Données mockées** : Utiliser de fausses données réalistes
-- **Aucune dépendance locale** : Le fichier doit fonctionner seul
+- **CDN obligatoire** : Tailwind + Preline JS + Google Fonts.
+- **Données mockées** : Utiliser de fausses données réalistes.
+- **Aucune dépendance locale** : Le fichier doit fonctionner seul.
 - **UN SEUL composant par fichier** : Chaque fichier `.html` affiche UN SEUL exemplaire du composant.
-- **Autorité du Layout (IMPORTANT)** : Le composant ne doit PAS avoir de background défini (sauf si c'est intrinsèque à son design comme une carte). Il doit être conçu pour se poser sur le background du Layout Principal (`bg-slate-50` ou `bg-slate-900`). Le `<body>` du fichier preview peut avoir une classe background pour la démo, mais le composant lui-même doit être "transparent" ou adaptable.
+- **Autorité du Layout** : Le composant ne doit PAS avoir de background défini (sauf si intrinsèque).
+
+## Règles Framework UI (Preline)
+**IMPÉRATIF : Tu es un expert Preline UI.**
+1.  **Priorité Preline** : Avant de coder quoi que ce soit, VÉRIFIE si un composant Preline existe.
+2.  **Classes Spécifiques** : Utilise les classes `hs-*` (Preline) pour l'interactivité (Dropdowns, Modals, Accordions).
+3.  **Skill Dédié** : Pour les détails d'implémentation, réfère-toi toujours au skill `preline` (`.agent/skills/preline/SKILL.md`).
 
 ## Règle de Synchronisation
 **À CHAQUE modification d'un composant HTML**, tu DOIS :
@@ -65,8 +81,9 @@ Chaque fichier `.html` DOIT être une **page HTML complète et fonctionnelle** q
 2.  Mettre à jour le `components-manifest.yaml` si nécessaire.
 
 ## Interdictions
+- **Pas de réinvention de la roue** : UTILISER LES COMPOSANTS PRELINE.
 - **Pas de PHP logique** : Code statique uniquement.
-- **Pas de JS Framework** : Vanilla JS minimal si nécessaire.
+- **Pas de JS Framework** : Vanilla JS minimal ou Alpine (via Preline).
 - **Pas de CSS custom** : Tailwind classes only.
 
 ---
