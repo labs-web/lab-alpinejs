@@ -1,0 +1,32 @@
+  - name: "Article Table"
+    category: "Components"
+    path: "./components/article-table.html"
+    status: "validated"
+    description: "Data table with rows, actions, and pagination."
+    documentation: "https://preline.co/docs/tables.html"
+    dependencies: 
+      - "Pagination"
+      - "Dropdown Action"
+      - "Avatar"
+      - "Badge"
+
+  - name: "Article Modal"
+    category: "Components"
+    path: "./components/article-modal.html"
+    status: "validated"
+    description: "Modal for creating/editing articles."
+    documentation: "https://preline.co/docs/modal.html"
+    dependencies: 
+      - "Form Group"
+      - "Button"
+      - "Switch"
+
+  - name: "Admin Sidebar"
+    category: "Layouts"
+    path: "./layouts/admin.html"
+    status: "validated"
+    description: "Main navigation sidebar for the admin panel."
+    documentation: "https://preline.co/docs/sidebar.html"
+    dependencies: 
+      - "Avatar"
+      - "Link"

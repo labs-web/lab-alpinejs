@@ -1,0 +1,32 @@
+items:
+  - name: "Button"
+    category: "Atoms"
+    path: "./atoms/button.html"
+    status: "validated"
+    description: "Standard buttons with variants (Solid, Outline, Ghost, etc.)."
+    documentation: "https://preline.co/docs/buttons.html"
+    dependencies: []
+
+  - name: "Badge"
+    category: "Atoms"
+    path: "./atoms/badge.html"
+    status: "validated"
+    description: "Status indicators and tags."
+    documentation: "https://preline.co/docs/badges.html"
+    dependencies: []
+
+  - name: "Avatar"
+    category: "Atoms"
+    path: "./atoms/avatar.html"
+    status: "validated"
+    description: "User profile images and initials."
+    documentation: "https://preline.co/docs/avatars.html"
+    dependencies: []
+
+  - name: "Switch"
+    category: "Atoms"
+    path: "./atoms/switch.html"
+    status: "validated"
+    description: "Toggle switch for boolean states."
+    documentation: "https://preline.co/docs/switch.html"
+    dependencies: []

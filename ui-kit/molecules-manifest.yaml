@@ -1,0 +1,67 @@
+items:
+  - name: "Form Group"
+    category: "Molecules"
+    path: "./molecules/form-group.html"
+    status: "validated"
+    description: "Input fields with labels, helper text, and validation states."
+    documentation: "https://preline.co/docs/input.html"
+    dependencies: 
+      - "Input"
+      - "Label"
+
+  - name: "Search Input"
+    category: "Molecules"
+    path: "./molecules/search-input.html"
+    status: "validated"
+    description: "Input field with search icon."
+    documentation: "https://preline.co/docs/input-group.html"
+    dependencies: 
+      - "Input"
+      - "Icon"
+
+  - name: "Dropdown Action"
+    category: "Molecules"
+    path: "./molecules/dropdown-action.html"
+    status: "validated"
+    description: "Contextual menu for actions (Edit, Delete, etc.)."
+    documentation: "https://preline.co/docs/dropdowns.html"
+    dependencies: 
+      - "Button"
+      - "Icon"
+
+  - name: "Card"
+    category: "Molecules"
+    path: "./molecules/card.html"
+    status: "validated"
+    description: "Container with header, body, and footer."
+    documentation: "https://preline.co/docs/cards.html"
+    dependencies: []
+
+  - name: "Pagination"
+    category: "Molecules"
+    path: "./molecules/pagination.html"
+    status: "validated"
+    description: "Navigation for paginated data."
+    documentation: "https://preline.co/docs/pagination.html"
+    dependencies: 
+      - "Button"
+      - "Icon"
+
+  - name: "Alert"
+    category: "Molecules"
+    path: "./molecules/alert.html"
+    status: "validated"
+    description: "Feedback messages (Success, Warning, Error)."
+    documentation: "https://preline.co/docs/alerts.html"
+    dependencies: 
+      - "Icon"
+
+  - name: "Breadcrumb"
+    category: "Molecules"
+    path: "./molecules/breadcrumb.html"
+    status: "validated"
+    description: "Navigation path hierarchy."
+    documentation: "https://preline.co/docs/breadcrumb.html"
+    dependencies: 
+      - "Icon"
+      - "Link"
