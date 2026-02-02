@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charte : Couleurs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-white dark:bg-slate-900 p-8">
+    <div class="max-w-[85rem] mx-auto">
+        <header class="mb-10 max-w-2xl">
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200">Charte : Couleurs</h1>
+            <p class="mt-2 text-gray-600 dark:text-gray-400">
+                Basé sur le système de couleurs par défaut de <strong>Preline UI</strong> (Tailwind CSS colors).
+            </p>
+        </header>
+
+        <div class="space-y-12">
+            <!-- Neutrals -->
+            <section>
+                <div class="mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Neutres (Gray/Slate)</h2>
+                    <p class="text-sm text-gray-500">Utilisé pour le texte, les bordures et les arrière-plans
+                        d'interface.</p>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-10 gap-4">
+                    <!-- Palette Generator -->
+                    <div class="space-y-1.5">
+                        <div class="h-16 w-full bg-gray-50 rounded-lg shadow-sm border border-gray-100"></div>
+                        <div class="text-xs text-gray-500 font-mono text-center">gray-50</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div class="h-16 w-full bg-gray-100 rounded-lg shadow-sm"></div>
+                        <div class="text-xs text-gray-500 font-mono text-center">gray-100</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div class="h-16 w-full bg-gray-200 rounded-lg shadow-sm"></div>
+                        <div class="text-xs text-gray-500 font-mono text-center">gray-200</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div class="h-16 w-full bg-gray-300 rounded-lg shadow-sm"></div>
+                        <div class="text-xs text-gray-500 font-mono text-center">gray-300</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div class="h-16 w-full bg-gray-400 rounded-lg shadow-sm"></div>
+                        <div class="text-xs text-gray-500 font-mono text-center">gray-400</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div class="h-16 w-full bg-gray-500 rounded-lg shadow-sm"></div>
+                        <div class="text-xs text-gray-500 font-mono text-center">gray-500</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div class="h-16 w-full bg-gray-600 rounded-lg shadow-sm"></div>
+                        <div class="text-xs text-gray-500 font-mono text-center">gray-600</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div class="h-16 w-full bg-gray-700 rounded-lg shadow-sm"></div>
+                        <div class="text-xs text-gray-500 font-mono text-center">gray-700</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div class="h-16 w-full bg-gray-800 rounded-lg shadow-sm"></div>
+                        <div class="text-xs text-gray-500 font-mono text-center">gray-800</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div class="h-16 w-full bg-gray-900 rounded-lg shadow-sm"></div>
+                        <div class="text-xs text-gray-500 font-mono text-center">gray-900</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Primary -->
+            <section>
+                <div class="mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Primaire (Blue)</h2>
+                    <p class="text-sm text-gray-500">Couleur de marque principale de Preline. Actions, liens, focus.</p>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                    <div class="space-y-1.5">
+                        <div
+                            class="h-20 w-full bg-blue-50 rounded-xl shadow-sm border border-blue-50 flex items-center justify-center text-blue-600 text-xs font-medium">
+                            Bgd Items</div>
+                        <div class="text-xs text-gray-500 font-mono text-center">blue-50</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="h-20 w-full bg-blue-100 rounded-xl shadow-sm flex items-center justify-center text-blue-700 text-xs font-medium">
+                            Bgd Hover</div>
+                        <div class="text-xs text-gray-500 font-mono text-center">blue-100</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="h-20 w-full bg-blue-500 rounded-xl shadow-sm flex items-center justify-center text-white text-xs font-medium">
+                            Focus ring</div>
+                        <div class="text-xs text-gray-500 font-mono text-center">blue-500</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="h-20 w-full bg-blue-600 rounded-xl shadow-sm ring-2 ring-offset-2 ring-offset-white ring-blue-600 flex items-center justify-center text-white text-xs font-bold">
+                            Primary</div>
+                        <div class="text-xs text-gray-500 font-mono text-center">blue-600</div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="h-20 w-full bg-blue-700 rounded-xl shadow-sm flex items-center justify-center text-white text-xs font-medium">
+                            Active/Hover</div>
+                        <div class="text-xs text-gray-500 font-mono text-center">blue-700</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Semantic -->
+            <section>
+                <div class="mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Sémantique (Feedback)</h2>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <!-- Success -->
+                    <div class="flex flex-col gap-2">
+                        <div
+                            class="h-12 w-full bg-teal-100 rounded-lg flex items-center px-4 text-teal-800 text-sm font-medium">
+                            teal-100 (Bg)
+                        </div>
+                        <div
+                            class="h-12 w-full bg-teal-500 rounded-lg flex items-center px-4 text-white text-sm font-medium">
+                            teal-500 (Text/Icon)
+                        </div>
+                        <span class="text-xs text-center text-gray-500">Succès (Badges, Alerts)</span>
+                    </div>
+                    <!-- Error -->
+                    <div class="flex flex-col gap-2">
+                        <div
+                            class="h-12 w-full bg-red-100 rounded-lg flex items-center px-4 text-red-800 text-sm font-medium">
+                            red-100 (Bg)
+                        </div>
+                        <div
+                            class="h-12 w-full bg-red-500 rounded-lg flex items-center px-4 text-white text-sm font-medium">
+                            red-500 (Text/Icon)
+                        </div>
+                        <span class="text-xs text-center text-gray-500">Erreur / Suppression</span>
+                    </div>
+                    <!-- Warning -->
+                    <div class="flex flex-col gap-2">
+                        <div
+                            class="h-12 w-full bg-yellow-100 rounded-lg flex items-center px-4 text-yellow-800 text-sm font-medium">
+                            yellow-100 (Bg)
+                        </div>
+                        <div
+                            class="h-12 w-full bg-yellow-500 rounded-lg flex items-center px-4 text-white text-sm font-medium">
+                            yellow-500 (Text/Icon)
+                        </div>
+                        <span class="text-xs text-center text-gray-500">Attention / Brouillon</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>
